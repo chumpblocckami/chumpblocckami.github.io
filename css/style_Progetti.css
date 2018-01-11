@@ -1,13 +1,14 @@
 
 body {
- background-color: #e7e7e7;
  color: #FFF;
  padding: 0; margin: 0; font: 0.7em Arial, sans-serif;
- position:absolute;
- z-index:0;
 }
-p {
-	font: 0.7em Arial,sans-serif;
+a {	
+	font: 2em Montserrat ExtraBold;
+	font-weight: bold;
+	color:black;
+	background: inherit;
+	text-align: center;
 }
 img{
 	width:100%;
@@ -15,65 +16,81 @@ img{
 	position:relative;
 	left:0;
 }
+div{
+	margin:0.5px;
+}
+td {
+	font:2em Questrial;
+	color:black;
+	margin:0.5px;
+	text-align: center;
+}
+td a {	
+	font: 1em Montserrat ExtraBold;
+	font-weight:bold;
+	color:black;
+	background: inherit;
+	text-align: center;
+}
+td p{
+	font:1em Montserrat ExtraBold;
+	font-weight:bold;
+	color:blue;
+	background: inherit;
+	text-align: center;
+}
 .Box {
-	background-color:black;
-	height: 1000px;
+	top:0;
+	left:0;
+	background-color:white;
+	height:100%;
 	width:100%;
-	position: relative;
 }
 
 .Header {
+	top:0;
+	left:0;
 	height: 300px;
 	width: 100%;
 	position:relative;
 }
-.Toolbar {
-	background:black;
-	height:100px;
-	width:100%;
-	left:0;
-	position:relative;
-	display:hidden;
-	margin-top: -2em
-}
-.Link {
-	background-color:gray;
-	height: 100px;
-	width: 10%;
+.About {
+	top:250px;
 	left:70%;
-	position:relative;
+	background-color:#F8ECC2;
+	height: 50px;
+	width: 10%;
+	position:absolute;
 	float:left;
+	z-index: 1;
+	border-top-left-radius: 15px;
+}
+.Contatti{
+	top:250px;
+	left:90%;
+	background-color:#F8ECC2;
+	height: 50px;
+	width: 10%;
+	position:absolute;
+	float:left;
+	z-index: 1;
+	border-top-right-radius: 15px;
+}
+.Progetti{
+	top:250px;
+	left:80%;
+	background-color:#F8ECC2;
+	height: 50px;
+	width: 10%;
+	position:absolute;
+	float:left;
+	z-index: 1;
 }
 .Corpus{
-	background-color:black;
+	top:0px;
 	left:0;
+	background-color:#F8ECC2;
 	height:400px;
 	width:100%;
 	position:relative;
-}
-.Photo{
-	background-color:gray;
-	height:400px;
-	width:45%;
-	left:0;
-	position:relative;
-	float:left;
-	z-index:1;
-}
-.Text{
-	background-color:gray;
-	height:400px;
-	width:55%;
-	left:0;
-	position:relative;
-	float:right;
-	z-index:1;
-}
-.Footbar{
-	background-color:gray;
-	height:50px;
-	width:100%;
-	left:0;
-	position:relative;
-	float:right;
 }

@@ -10,12 +10,14 @@ p {
 }
 a {	
 	font: 2em Montserrat ExtraBold;
+	font-weight: bold;
 	color:black;
 	background: inherit;
 	text-align: center;
 }
 cite {
-	font: 2em;
+	font: 1.5em Montserrat Extrabold;
+	font-style:italic;
 	color:black;
 	margin:1.0px;
 }
@@ -42,7 +44,7 @@ br{
 .Box {
 	top:0;
 	left:0;
-	background-color:white;
+	background-color:#F8ECC2;
 	height:100%;
 	width:100%;
 }

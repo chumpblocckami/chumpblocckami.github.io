@@ -1,2 +1,4 @@
 # chumpblocckami.github.io
-Ciao!
+Take a walk on the wild side.
+
+Matteo Mazzola

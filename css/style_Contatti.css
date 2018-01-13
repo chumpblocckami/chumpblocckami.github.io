@@ -3,12 +3,29 @@ body {
  color: #FFF;
  padding: 0; margin: 0; font: 0.7em Arial, sans-serif;
 }
+p {
+	font: 1.5em Questrial;
+	color:black;
+	margin:0.5px;
+}
 a {	
 	font: 2em Montserrat ExtraBold;
 	font-weight: bold;
 	color:black;
 	background: inherit;
 	text-align: center;
+}
+h1 {
+	font: 2em Montserrat Extrabold;
+	font-weight: bold;
+	color:black;
+	background:inherit;
+}
+cite {
+	font: 1.5em Montserrat Extrabold;
+	font-style:italic;
+	color:black;
+	margin:1.0px;
 }
 img{
 	width:100%;
@@ -23,26 +40,17 @@ td {
 	font:2em Questrial;
 	color:black;
 	margin:0.5px;
-	text-align: center;
 }
-td a {	
-	font: 1em Montserrat ExtraBold;
-	font-weight:bold;
-	color:black;
-	background: inherit;
-	text-align: center;
-}
-td p{
-	font:1em Montserrat ExtraBold;
-	font-weight:bold;
-	color:red;
+br{
+	font:2em Montserrat ExtraBold;
+	color:blue;
 	background: inherit;
 	text-align: center;
 }
 .Box {
 	top:0;
 	left:0;
-	background-color:white;
+	background-color:#F8ECC2;
 	height:100%;
 	width:100%;
 }
@@ -93,4 +101,28 @@ td p{
 	height:400px;
 	width:100%;
 	position:relative;
+}
+.Mail{
+	top:0px;
+	left:0;
+	background-color:#F8ECC2;
+	height:400px;
+	width:30%;
+	position:absolute;
+}
+.Presence{
+	top:0px;
+	left:32%;
+	background-color:#F8ECC2;
+	height:400px;
+	width:30%;
+	position:absolute;
+}
+.Social{
+	top:0px;
+	left:64%;
+	background-color:#F8ECC2;
+	height:400px;
+	width:30%;
+	position:absolute;
 }

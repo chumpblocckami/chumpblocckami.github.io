@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>TOMBOLA</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>MKM Scraper</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -16,9 +16,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-button a{
-  position:sticky;
-}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -11769,357 +11766,27 @@ div#notebook {
     </script>
     <!-- End of mathjax configuration --></head>
 <body>
-  <button>
-  <a href="Progetti.html">INDIETRO</a>
-</button>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
+<button><a href="../Progetti.html">INDIETRO<a></button>
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Simulatore-TOMBOLA!-in-Python">Simulatore TOMBOLA! in Python<a class="anchor-link" href="#Simulatore-TOMBOLA!-in-Python">&#182;</a></h2><p>Durante le feste natalizie, ho avuto il piacere di giocare a tombola con i miei familiari, e durante una discussione ci si è ritrovati a parlare di questo gioco: mio zio infatti, sosteneva che le ci fossero cartelle fortunate, le quali vincessero il maggior numero delle volte rispetto alle altre.
-Dopo vari tentativi più o meno convincenti, mio zio rimaneva ancora fermo sulla sua idea, e la discussione si è arenata al terzo giro di brindisi. 
-Dopo i festeggiamenti però mi è tornato in mente questo fatto, e quindi ho voluto simulare il gioco della TOMBOLA, in modo da dare dati empirici sulla percentuale di vittorie di ogni cartella.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Teoria-e-risultati-attesi:">Teoria e risultati attesi:<a class="anchor-link" href="#Teoria-e-risultati-attesi:">&#182;</a></h3><p>Secondo la teoria frequentista, l'estrazione della tombola è un evento ecc ...</p>
-<p>Il risultato atteso è quindi che ogni cartella abbia la stessa percentuale di vittoria, con uno scarto dato dal caso di circa il x%.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Vengono importati i metodi utilizzati in questo progetto, tra cui i famosissimi numpy,random e math.
-Il metodo più particolare utilizzato è copy, che permette di creare una copia virtuale di un array, in modo da poterlo modificare senza andare a cambiare il vettore delle informazioni.</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">statistics</span> <span class="k">import</span> <span class="n">mean</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">shuffle</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">copy</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"></span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">NavigableString</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">unicodedata</span>
+<span class="kn">import</span> <span class="nn">math</span> 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>La classe 'Tombola' verrà utilizzata per la simulazione del gioco, ed è composta da 5 metodi:</p>
-<h4 id="Cartelle:">Cartelle:<a class="anchor-link" href="#Cartelle:">&#182;</a></h4><p>è il metodo utilizzato per la creazione delle cartelle: si generano un numero di cartelle a scelta, le quali verranno riempite con 15 numeri casuali, come avviene nella tombola reale.</p>
-<h4 id="Estrazione:">Estrazione:<a class="anchor-link" href="#Estrazione:">&#182;</a></h4><p>è il metodo utilizzato per arrivare all'estrazione dei numeri: serviva infatti la sequenza con cui i numeri venivano estratti, così è stata creato un vettore contenente numeri casuali da 1 a 90, come avviene nella tombola tradizionale.</p>
-<h4 id="Check:">Check:<a class="anchor-link" href="#Check:">&#182;</a></h4><p>è il metodo utilizzato per verificare se il numero estratto è presente nella cartella: la base del gioco della tombola insomma. Per ogni numero estratto quindi, si è controllato ogni numero in ogni cartella per vedere se era presente. Quando il numero è pr#esente, si verifica se la cartella ha fatto Tombola o meno, in caso contrario si procede alla prossima cartella.</p>
-<h3 id="Tabellone:">Tabellone:<a class="anchor-link" href="#Tabellone:">&#182;</a></h3><p>è il metodo utilizzato per mostrare i risultati: mostra in un istogramma quante sono state le vittorie di ogni cartella.</p>
-<h4 id="Statistiche:">Statistiche:<a class="anchor-link" href="#Statistiche:">&#182;</a></h4><p>è il metodo utilizzato per mostrare le percentuali di vittoria di ogni cartella: con un grafico a torta le porzioni e le percentuali di vittoria di ogni cartella.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Tombola</span><span class="p">:</span> 
-    <span class="k">def</span> <span class="nf">Cartelle</span><span class="p">(</span><span class="n">numero</span><span class="p">):</span>
-        <span class="n">numeri</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">cartelle</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numero</span><span class="p">)</span> <span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">91</span><span class="p">):</span>
-            <span class="n">numeri</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">cartelle</span><span class="p">)):</span>
-            <span class="n">cartelle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">numeri</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">cartelle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-            <span class="n">cartelle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cartelle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">cartelle</span>
-    
-    <span class="k">def</span> <span class="nf">Estrazione</span><span class="p">():</span>
-        <span class="n">numeri</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">91</span><span class="p">):</span>
-            <span class="n">numeri</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">shuffle</span><span class="p">(</span><span class="n">numeri</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">numeri</span>
-    
-    <span class="k">def</span> <span class="nf">Check</span><span class="p">(</span><span class="n">cartelle_</span><span class="p">,</span> <span class="n">estrazione_</span><span class="p">):</span>
-        <span class="n">cartelle</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cartelle_</span><span class="p">)</span>
-        <span class="n">estrazione</span> <span class="o">=</span> <span class="n">estrazione_</span>
-        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">numero_cartella</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">numero_casella</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">numero</span> <span class="ow">in</span> <span class="n">estrazione</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">cartella</span> <span class="ow">in</span> <span class="n">cartelle</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">casella</span> <span class="ow">in</span> <span class="n">cartella</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">casella</span> <span class="o">==</span> <span class="n">numero</span><span class="p">):</span>
-                        <span class="n">cartella</span><span class="p">[</span><span class="n">numero_casella</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                    <span class="n">numero_casella</span> <span class="o">=</span> <span class="n">numero_casella</span><span class="o">+</span><span class="mi">1</span>
-                <span class="k">for</span> <span class="n">casella</span> <span class="ow">in</span> <span class="n">cartella</span><span class="p">:</span>
-                    <span class="k">if</span><span class="p">(</span><span class="n">casella</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-                        <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span><span class="mi">1</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">score</span> <span class="o">==</span> <span class="mi">15</span><span class="p">):</span>
-                    <span class="k">return</span><span class="p">(</span><span class="n">numero_cartella</span><span class="p">)</span>
-                    <span class="k">break</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">numero_casella</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">numero_cartella</span> <span class="o">=</span> <span class="n">numero_cartella</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">numero_cartella</span> <span class="o">=</span> <span class="mi">0</span>
-
-            
-    <span class="k">def</span> <span class="nf">Tabellone</span><span class="p">(</span><span class="n">risultati</span><span class="p">,</span><span class="n">cartella</span><span class="p">):</span>
-        <span class="n">scoreboard</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cartella</span><span class="p">):</span>
-            <span class="n">scoreboard</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scoreboard</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">risultati</span><span class="p">:</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">):</span>
-                    <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
-        <span class="n">valori</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scoreboard</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Punteggi: </span><span class="si">{}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scoreboard</span><span class="p">))</span>
-        
-    <span class="k">def</span> <span class="nf">Statistiche</span><span class="p">(</span><span class="n">risultati</span><span class="p">,</span><span class="n">cartella</span><span class="p">):</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Cartella </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cartella</span><span class="p">)]</span>
-        <span class="n">scoreboard</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cartella</span><span class="p">):</span>
-            <span class="n">scoreboard</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scoreboard</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">risultati</span><span class="p">:</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">):</span>
-                    <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tabellone punteggi&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Numero Vittorie&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Cartelle&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">scoreboard</span><span class="p">)):</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">scoreboard</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">height</span><span class="o">=</span><span class="n">scoreboard</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-        <span class="c1">#plt.show()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-        <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scoreboard</span><span class="p">]</span>
-        <span class="n">patches</span><span class="p">,</span> <span class="n">texts</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Statistiche:&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">140</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-        <span class="c1">#plt.legend(patches, labels, loc=&quot;right&quot;) #vedere dove mettere sta medda qua che non si capisce</span>
-        
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-        
-        
-        
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        
-        
-        
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Dopo la creazione della classe, si crea la simulazione vera e propria:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">lunghezza</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">n_cartelle</span> <span class="o">=</span> <span class="mi">10</span>
-
-<span class="n">cartella</span> <span class="o">=</span> <span class="n">Tombola</span><span class="o">.</span><span class="n">Cartelle</span><span class="p">(</span><span class="n">n_cartelle</span><span class="p">)</span>
-<span class="n">estrazioni</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">risultati</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">cartelle_</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">numero</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">lunghezza</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">estrazioni</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tombola</span><span class="o">.</span><span class="n">Estrazione</span><span class="p">())</span>
-    <span class="n">cartelle_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cartella</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numero estrazioni: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">estrazioni</span><span class="p">)))</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">lunghezza</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="si">{0}% c</span><span class="s1">artelle visionate! </span><span class="si">{1}</span><span class="s1"> su </span><span class="si">{2}</span><span class="s1">...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">lunghezza</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">lunghezza</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">risultati</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tombola</span><span class="o">.</span><span class="n">Check</span><span class="p">(</span><span class="n">cartelle_</span><span class="p">[</span><span class="n">x</span><span class="p">],</span><span class="n">estrazioni</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
-<span class="n">Tombola</span><span class="o">.</span><span class="n">Tabellone</span><span class="p">(</span><span class="n">risultati</span><span class="p">,</span><span class="n">n_cartelle</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Numero estrazioni: 1000
-100% cartelle visionate! 1000 su 1000...</pre>
-</div>
-</div>
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYgAAAEWCAYAAAB8LwAVAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-AAALEgAACxIB0t1+/AAAGGlJREFUeJzt3XmcZWV95/HPFxARkEVoEWgQJAgSGAE7BsUQBccQRUBF
-wEGGIMrg4ALjRMGQII4TcSKgGRckoMFIQAZJYJS4gdtMFG0WWV0QQbrZGhUa0CjgL3+cU3K7PVV1
-qeq7UPV5v173Vfds9/ndornfep5zznNTVUiStLLVRl2AJGk8GRCSpE4GhCSpkwEhSepkQEiSOhkQ
-kqROBoQeN5KslaSSLJztsUnOS3LCqq9yfkjyoyTPG3UdGiwDQkOV5IGex2+S/LJn+ZBR1/d4lWTv
-JDcNq72q2qaqvjms9jQaa4y6AM0vVbXuxPMktwCvr6ovj64iSZOxB6GxkmT3JJcnuTfJ7UlOS7Ly
-HzL7J7klybIk/zNJeo7/L0m+n+RnST6XZPM+2z26HTb5aZILk2zSrp8Ymjqy3f7zJKetdGxfbSbZ
-PsnDSY5Kckf7/t7cs32FYa+VewVJ7kxybJLrktyX5JwkaybZCPgn4Bk9vbGNkqye5C+T3Jzknnb/
-DXpe7/VJbmt/j29vX/8F7bZ1k/xj+9/huiTHd9Tygn5+t3r8MiA0bh4C3gRsBPwR8HLg9Svt83Jg
-Z+C5wGuAQwCSHAQc027fBLgK+NR0DSZ5KfCXwCuAzYF7gH9Yabe9gV2AXYHDk7xwhm2uDjwPeAbw
-MuCkx/hBewCwF/B7wB8C/6mqftrWfnNVrds+fgr8d+AlwAuAhTS/29PauncBTgVe3W5bCGzc0857
-gAXA09s6D30MNWqOMCA0Vqrq21X1nap6pKp+BJwJ/PFKu723qu6tqh8DH6IJCYCjgPdU1Q+q6iHg
-JOAFE72BKRwCnFFV11TVvwFvB16c5Gk9+/x1VS1v2/w6TUDNtM0Tq+qXVTURJq+ZYt+VnVZVd1XV
-MuCSnjq6HAUcV1W3t+/rJOCgtsf1auAzVfWtqvoVcAIrfh4c2L6v+6rqVuAjj6FGzREGhMZKkh2S
-/EuSu5IsB/6KFf+yBbit5/mtwGbt86cDp7fDIvcCy4CHaf46nspm7esAUFX3AstpehMT7ux5/gtg
-4lzKTNqcrP5+TFbHCtoQ2AK4pKe2q2j+n9+obfO3dVTVcuC+9tjVgKetVGfvc80TBoTGzd8BVwLb
-VNV6wLuBrLTPFj3PtwRub5/fBvxZVW3Q83hSVV0xTZu303zQA9CO068HLO2j3pm0OVn9DwJr92zr
-7cFMZ4VpmauZpnkpsOdKta1VVfcAd9ATYknWA9Zvj/0NcBcrhlxvzZonDAiNmycD91XVA0l+H3hD
-xz7vSLJ+kq1ozld8ul1/OnBCku0AkmyY5FV9tHku8IYkOyZZCzgZuKyq7pzmuJm2eWKSJyV5Ns3Y
-/kT9VwP7JNmgPdH95klf4XfdBTw1SW+P4nTg5CRbtLU9NcnL223nA69K8gdJ1qQJ4t/0HHs+8Bft
-73lL4I2PoRbNEQaExs2xwOuTPAB8mEc/PHt9DvgusBj4P7QnhavqXJpzEhe2w1NXA/9xugar6rPA
-e4GLaf6afxp9npSdQZuPAJcDPwY+D7y7qr7ebvs4cBPwE+CzNMHVr++29d/aDik9BfhfwJeBy5Lc
-D/wrzUl22vMff05z9dNSmh7FfcCv2tc7Afg5zRDYv9AExq/QvBK/MEgajiTbA9dV1djdf5RkQ+Bn
-wGZVdUfH9mOBvavqT4ZenEbGHoQ0TyXZtx3qWpfmktfLJ8IhyRZJdkuyWjvU91aa3obmEQNCmr9e
-TXNV1BKaK7Z6pzp5Is2Q1/00Q2Hn0VxyrHnEISZJUid7EJKkTgM7WZbk48A+wN1VtWO77m9opiT4
-NfAj4PD2piSSHA8cQXOVx1uq6gvTtbHxxhvXVlttNZg3IElz1BVXXHFPVS2Ybr+BDTEl2QN4APhk
-T0C8hOb68oeTvA+gqt6RZAeaS/qeS3OH55eBZ1bVI1O1sWjRolq8ePFA6pekuSrJFVW1aLr9BjbE
-1F7b/bOV1n2xqh5uF7/Fo3dq7gecV1W/aue6uYkmLCRJIzLKcxCvo7kBB5orKHrnepm4qkKSNCIj
-CYgkf0Ezodk5Mzj2yCSLkyxetmzZqi9OkgSMICCS/BnNyetD6tETIEtZcTKwhUwyUVpVnVFVi6pq
-0YIF055jkSTN0FADIsneNHPt71tVv+jZdDFwcJInJtka2Bb49jBrkyStaJCXuZ4LvBDYOMkS4ETg
-eJo7NL/UTFfPt6rqqKq6Psn5wA00Q09HT3cFkyRpsB7Xd1J7maskPXYjv8xVkvT4ZkBIkjqN3bz0
-0qB8+KjLBvr6R5++50BfXxo2exCSpE4GhCSpkwEhSepkQEiSOhkQkqROBoQkqZOXuUpDcMpB+wy8
-jbd9+rMDb0Pziz0ISVInA0KS1MmAkCR1MiAkSZ0MCElSJwNCktTJgJAkdTIgJEmdDAhJUicDQpLU
-yak2NFQ3bv+sgb7+s75340BfX5pP7EFIkjoZEJKkTgaEJKmTASFJ6uRJammOW3LcNwbexsKT/2jg
-bWj47EFIkjoNLCCSfDzJ3Umu61n3lCRfSvLD9ueG7fok+dskNyW5Jsmug6pLktSfQfYg/h7Ye6V1
-xwGXVtW2wKXtMsCfAtu2jyOBjw6wLklSHwYWEFX1deBnK63eDzi7fX42sH/P+k9W41vABkk2HVRt
-kqTpDfsk9SZVdUf7/E5gk/b55sBtPfstadfdwUqSHEnTy2DLLbccXKWSZu1d73rXnGhjvhrZSeqq
-KqBmcNwZVbWoqhYtWLBgAJVJkmD4PYi7kmxaVXe0Q0h3t+uXAlv07LewXTcwWx33uUG+PAC3nPyy
-gbchafw87StXD7yNO1+088DbGHYP4mLgsPb5YcBFPev/c3s1027AfT1DUZKkERhYDyLJucALgY2T
-LAFOBE4Gzk9yBHArcGC7+yXAS4GbgF8Ahw+qLklSfwYWEFX1mkk27dWxbwFHD6oWSdJj553UkqRO
-BoQkqZMBIUnqZEBIkjoZEJKkTgaEJKmTASFJ6mRASJI6GRCSpE4GhCSp07BncxXAu9YfQhv3Db4N
-aYxdetk2A29jrz1/NPA2RskehCSpkwEhSepkQEiSOhkQkqROBoQkqZMBIUnqZEBIkjoZEJKkTgaE
-JKmTASFJ6mRASJI6GRCSpE4GhCSpkwEhSerkdN/z0E5n7zTQ17/2sGsH+vqShsMehCSp07QBkeSZ
-SS5Ncl27/B+SnDCbRpMcm+T6JNclOTfJWkm2TnJ5kpuSfDrJmrNpQ5I0O/30IP4OOB54CKCqrgEO
-nmmDSTYH3gIsqqodgdXb13sfcFpV/R7wc+CImbYhSZq9fgJi7ar69krrHp5lu2sAT0qyBrA2cAew
-J3BBu/1sYP9ZtiFJmoV+AuKeJNsABZDkAJoP9BmpqqXA+4GftK9zH3AFcG9VTQTPEmDzruOTHJlk
-cZLFy5Ytm2kZkqRp9BMQRwMfA7ZPshQ4BnjjTBtMsiGwH7A1sBmwDrB3v8dX1RlVtaiqFi1YsGCm
-ZUiSpjHtZa5VdTPw4iTrAKtV1f2zbPPFwI+rahlAkguB3YENkqzR9iIWAktn2Y4kaRYmDYgkr62q
-TyX5byutB6CqTp1hmz8BdkuyNvBLYC9gMfAV4ADgPOAw4KIZvr4kaRWYqgexTvvzyauywaq6PMkF
-wJU0J7uvAs4APgecl+Q97bqzVmW7kqTHZtKAqKqPJVkdWF5Vp63KRqvqRODElVbfDDx3VbYjSZq5
-KU9SV9UjwL5DqkWSNEb6mYvpX5N8CPg08ODEyqq6cmBVSZJGrp+AeH77890964rmxjZJ0hzVz2Wu
-LxpGIZKk8dLPZH3rJzl14u7lJKckWX8YxUmSRqefO6k/DtwPHNg+lgOfGGRRkqTR6+ccxDZV9aqe
-5ZOSXD2ogiRJ46GfHsQvk7xgYiHJ7jR3QEuS5rB+ehBHAZ/sOe/wc5qpMCRJc1g/AbG8qp6dZD2A
-qlqeZOsB1yVJGrF+hpg+A00wVNXydt0FU+wvSZoDpprNdXvg94H1k7yyZ9N6wFqDLkySNFpTDTFt
-B+wDbAC8vGf9/cAbBlmUJGn0pprN9SLgoiR7VNXXe7e1VzJJkuawfs5BfKBj3f9e1YVIksbLVOcg
-nkczUd+Clb5Vbj1g9UEXJkkaranOQawJrNvu0/utcstpvhpUkjSHTXUO4mvA15L8fVXdOsSaJElj
-YKohpg9U1THAh5LUyturym+ak6Q5bKohpn9of75/GIVIksbLVAGxZ5K72qEmSdI8M9VlrpsB30zy
-jST/NcmCYRUlSRq9SQOiqo4FtgROAHYCrkny+SSHJXnyZMdJkuaGKW+Uq8bXquqNwELgNOAY4K5h
-FCdJGp1+pvsmyU7AwcBBwD3A8YMsSpI0elNd5rotTSgcDDwCnAe8pKpuHlJtkqQRmqoH8XngXOCg
-qrpuSPVIksbEVHdSbzOoRpNsAJwJ7AgU8Drg+8Cnga2AW4ADq+rng6pBkjS1fmZzHYQPAp+vqu2B
-ZwM3AscBl1bVtsCl7bIkaUSGHhBJ1gf2AM4CqKpfV9W9wH7A2e1uZwP7D7s2SdKj+gqIJGsm2bF9
-PGGWbW4NLAM+keSqJGcmWQfYpKruaPe5E9hkklqOTLI4yeJly5bNshRJ0mSmDYgkLwR+CHwY+Ajw
-gyR7zKLNNYBdgY9W1S7Ag6w0nFRVRXNu4ndU1RlVtaiqFi1Y4M3dkjQo/fQgTqG5vPWPq2oP4E9o
-bpibqSXAkqq6vF2+gCYw7kqyKUD78+5ZtCFJmqV+AuIJVfX9iYWq+gEw42GmqroTuC3Jdu2qvYAb
-gIuBw9p1hwEXzbQNSdLs9XMn9eIkZwKfapcPARbPst03A+ckWRO4GTicJqzOT3IEcCtw4CzbkCTN
-Qj8B8UbgaOAt7fI3aM5FzFhVXQ0s6ti012xeV5K06kwZEElWB86qqtcCpw6nJEnSOJhuNtdHgAXt
-UJAkaR7pZ4jpFuD/J7mY5pJUAKrKHoUkzWH9BMTt7WM1wC8KkqR5YtqAqKqTAJKsXVW/GHxJkqRx
-0M+d1M9LcgPwvXb52UlmdRWTJGn89XOj3Ado7p7+KUBVfZdmsj1J0hzW12R9VXXbSqseGUAtkqQx
-0s9J6tuSPB+odibXt9J8f4MkaQ7rpwdxFM2d1JsDS4Gd22VJ0hzWz1VM99DMvyRJmkemDYgkW9NM
-rrdV7/5Vte/gypIkjVo/5yD+mebrQf8v8JvBliNJGhf9BMS/VdXfDrwSSdJY6ScgPpjkROCLwK8m
-VlbVlQOrSpI0cv0ExE7AocCePDrEVO2yJGmO6icgXgE8o6p+PehiJEnjo5/7IL4LbDDoQiRJ46Wf
-HsQmwPeSfIcVz0F4maskzWH9BMSJA69CkjR2+rmT+mvDKESSNF76uZP6fpqrlgDWBJ4APFhV6w2y
-MEnSaPXTg/jt14wmCbAf8NxBFiVJGr2+vg9iQjX+Ge+BkKQ5r58hplf2LK4GLOLRISdJ0hzVz1VM
-L+95/jBwC80wkyRpDuvnHMThg2g4yerAYmBpVe3TTit+HrARcAVwqHdvS9LoTBoQSf5qiuOqqv7H
-LNue+OrSiauh3gecVlXnJTkdOAL46CzbkCTN0FQnqR/seEDzwf2O2TSaZCHwMuDMdjk0J74vaHc5
-G9h/Nm1IkmZn0h5EVZ0y8TzJk2n+4j+cZhjolMmO69MHgLcDE5fQbgTcW1UPt8tLaL4D+3ckORI4
-EmDLLbecZRmSpMlMeZlrkqckeQ9wDU2Y7FpV76iqu2faYJJ9gLur6oqZHF9VZ1TVoqpatGDBgpmW
-IUmaxlTnIP4GeCVwBrBTVT2witrcHdg3yUuBtWjOQXwQ2CDJGm0vYiGwdBW1J0magal6EG8DNgNO
-AG5Psrx93J9k+UwbrKrjq2phVW0FHAxcVlWHAF8BDmh3Owy4aKZtSJJmb6pzEI/pLutV4B3Aee2Q
-1lXAWUNuX5LUo58b5Qamqr4KfLV9fjPO8SRJY2PYvQRJ0uOEASFJ6mRASJI6GRCSpE4GhCSpkwEh
-SepkQEiSOhkQkqROBoQkqZMBIUnqZEBIkjoZEJKkTgaEJKmTASFJ6mRASJI6GRCSpE4GhCSpkwEh
-SepkQEiSOhkQkqROBoQkqZMBIUnqZEBIkjoZEJKkTgaEJKmTASFJ6mRASJI6DT0gkmyR5CtJbkhy
-fZK3tuufkuRLSX7Y/txw2LVJkh41ih7Ew8DbqmoHYDfg6CQ7AMcBl1bVtsCl7bIkaUSGHhBVdUdV
-Xdk+vx+4Edgc2A84u93tbGD/YdcmSXrUSM9BJNkK2AW4HNikqu5oN90JbDLJMUcmWZxk8bJly4ZS
-pyTNRyMLiCTrAp8Bjqmq5b3bqqqA6jquqs6oqkVVtWjBggVDqFSS5qeRBESSJ9CEwzlVdWG7+q4k
-m7bbNwXuHkVtkqTGKK5iCnAWcGNVndqz6WLgsPb5YcBFw65NkvSoNUbQ5u7AocC1Sa5u170TOBk4
-P8kRwK3AgSOoTZLUGnpAVNX/AzLJ5r2GWYskaXLeSS1J6mRASJI6GRCSpE4GhCSpkwEhSepkQEiS
-OhkQkqROBoQkqZMBIUnqZEBIkjoZEJKkTgaEJKmTASFJ6mRASJI6GRCSpE4GhCSpkwEhSepkQEiS
-OhkQkqROBoQkqZMBIUnqZEBIkjoZEJKkTgaEJKmTASFJ6mRASJI6GRCSpE5jFxBJ9k7y/SQ3JTlu
-1PVI0nw1VgGRZHXgw8CfAjsAr0myw2irkqT5aawCAngucFNV3VxVvwbOA/YbcU2SNC+lqkZdw28l
-OQDYu6pe3y4fCvxhVb2pZ58jgSPbxe2A7w+xxI2Be4bY3rjwfc8vvu+57+lVtWC6ndYYRiWrUlWd
-AZwxiraTLK6qRaNoe5R83/OL71sTxm2IaSmwRc/ywnadJGnIxi0gvgNsm2TrJGsCBwMXj7gmSZqX
-xmqIqaoeTvIm4AvA6sDHq+r6EZfVayRDW2PA9z2/+L4FjNlJaknS+Bi3ISZJ0pgwICRJnQyIPszX
-6T+SbJHkK0luSHJ9kreOuqZhSbJ6kquSfHbUtQxTkg2SXJDke0luTPK8Udc0DEmObf+NX5fk3CRr
-jbqmcWBATGOeT//xMPC2qtoB2A04eh6997cCN466iBH4IPD5qtoeeDbz4HeQZHPgLcCiqtqR5gKZ
-g0db1XgwIKY3b6f/qKo7qurK9vn9NB8Wm4+2qsFLshB4GXDmqGsZpiTrA3sAZwFU1a+r6t7RVjU0
-awBPSrIGsDZw+4jrGQsGxPQ2B27rWV7CPPiQXFmSrYBdgMtHW8lQfAB4O/CbURcyZFsDy4BPtMNr
-ZyZZZ9RFDVpVLQXeD/wEuAO4r6q+ONqqxoMBoWklWRf4DHBMVS0fdT2DlGQf4O6qumLUtYzAGsCu
-wEerahfgQWDOn3NLsiHNqMDWwGbAOkleO9qqxoMBMb15Pf1HkifQhMM5VXXhqOsZgt2BfZPcQjOc
-uGeST422pKFZAiypqole4gU0gTHXvRj4cVUtq6qHgAuB54+4prFgQExv3k7/kSQ049E3VtWpo65n
-GKrq+KpaWFVb0fy3vqyq5sVfk1V1J3Bbku3aVXsBN4ywpGH5CbBbkrXbf/N7MQ9OzvdjrKbaGEeP
-g+k/Bml34FDg2iRXt+veWVWXjLAmDdabgXPaP4ZuBg4fcT0DV1WXJ7kAuJLmyr2rcNoNwKk2JEmT
-cIhJktTJgJAkdTIgJEmdDAhJUicDQpLUyYCQVpLkaUnOS/KjdibbS5I88zEc/84+97slycbt8wdm
-Wq80KAaE1KO9UeqfgK9W1TbtTLbvBDbp59gkq7X7S497BoS0ohcBD1XV6RMrqupq4Koklya5Msm1
-SfaDZhLD9nsTPkJzo9VZNLOCXp3knHaf1yb5drvuY+0U8pNK8udJvpPkmiQnDeydStMwIKQV7Qh0
-TdT3b8ArqmpXmhA5pe1tAGwHfLKqdqmqw4FfVtXOVXVIkmcBBwG7V9XOwCPAIZM1nuQlwLY008zv
-DDwnyR6r6s1Jj4VTbUj9CfDX7Yf1b2imfJ8Ydrq1qr41yXF7Ac8BvtPmyZOAu6do5yXt46p2eV2a
-wPj6rKqXZsCAkFZ0PXBAx/pDgAXAc6rqoXa214mvpXxwitcLcHZVHd9n+wHeW1Uf63N/aWAcYpJW
-dBnwxCRHTqxI8gfA02m+J+KhJC9qlyfzUDtNOsClwAFJntq+1lOSTHXsF4DXtd/BQZLNJ46Vhs2A
-kHpUM3vlK4AXt5e5Xg+8C7gEWJRkMU1v4ntTvMwZwDVJzqmqG4ATgC8muQb4ErDpFO1/EfhH4JtJ
-rqX5ToYnz/6dSY+ds7lKkjrZg5AkdTIgJEmdDAhJUicDQpLUyYCQJHUyICRJnQwISVKnfwdPIv9I
-8AsyugAAAABJRU5ErkJggg==
-"
->
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -12129,402 +11796,200 @@ rqX5ToYnz/6dSY+ds7lKkjrZg5AkdTIgJEmdDAhJUicDQpLUyYCQJHUyICRJnQwISVKnfwdPIv9I
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">mkm_Scraper</span><span class="p">:</span>   
+<span class="c1"></span>
+    <span class="k">def</span> <span class="nf">scrap_link_format</span><span class="p">(</span><span class="n">format_</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">format_</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;standard&quot;</span><span class="p">):</span>
+            <span class="n">pages_to_scrap</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">archive0</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">archive</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">standard0</span> <span class="o">=</span> <span class="n">Analyzer</span><span class="o">.</span><span class="n">formats</span><span class="p">(</span><span class="s2">&quot;standard&quot;</span><span class="p">)</span>
+            <span class="n">standard</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">standard0</span><span class="p">:</span>  
+                <span class="n">standard</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="s2">&quot;+&quot;</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">standard</span><span class="p">:</span>
+                <span class="n">pages_to_scrap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;https://it.magiccardmarket.eu/Products/Singles/&quot;</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">page_to_scrap</span> <span class="ow">in</span> <span class="n">pages_to_scrap</span><span class="p">:</span>
+                <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_to_scrap</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">number_items</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="s2">&quot;html.parser&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">,{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;hitCountTop&quot;</span><span class="p">})</span>
+                <span class="n">number_items</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">number_items</span><span class="p">)))</span>
+                <span class="n">archive0</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_to_scrap</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">number_items</span><span class="o">/</span><span class="mi">30</span><span class="p">:</span>
+                    <span class="n">archive</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_to_scrap</span><span class="o">+</span><span class="s2">&quot;?resultsPage=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">return</span><span class="p">(</span><span class="n">archive</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="n">file</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+        <span class="n">deli</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;https://it.magiccardmarket.eu&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">write_special</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="n">file</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">special</span><span class="p">):</span>
+        <span class="n">deli</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;https://it.magiccardmarket.eu&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">special</span><span class="o">+</span><span class="n">deli</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+   
+    <span class="k">def</span> <span class="nf">download_database_format</span><span class="p">(</span><span class="n">format_</span><span class="p">):</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">format_</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;standard&quot;</span><span class="p">):</span>
+            <span class="n">card_details</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">standard</span> <span class="o">=</span> <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">scrap_link_format</span><span class="p">(</span><span class="s2">&quot;standard&quot;</span><span class="p">)</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;standard.csv&quot;</span><span class="p">,</span><span class="s2">&quot;w+&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;ID;Image;Set;Name;Nome;Rarity;Availability;Price_Normal;Price_Foil&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">sites</span> <span class="ow">in</span> <span class="n">standard</span><span class="p">:</span>
+                <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="s2">&quot;html.parser&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;MKMTable fullWidth&quot;</span><span class="p">})</span>
+                <span class="n">tbody</span><span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">)</span>
+                <span class="n">tr</span> <span class="o">=</span> <span class="n">tbody</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">temp</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">td</span> <span class="ow">in</span> <span class="n">tr</span><span class="p">:</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">))</span>
+                    <span class="k">try</span><span class="p">:</span> <span class="c1">#see this</span>
+                        <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">),</span><span class="n">file</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2"> Scaricate: </span><span class="si">{0}</span><span class="s2"> carte su </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">standard</span><span class="p">)</span><span class="o">*</span><span class="mi">30</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            
+<span class="c1"></span>
+    <span class="k">def</span> <span class="nf">get_title_editions</span><span class="p">():</span>
+        <span class="n">title_expansion</span>  <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">singles</span> <span class="o">=</span> <span class="s2">&quot;https://it.magiccardmarket.eu/Products/Singles/&quot;</span>
+        <span class="n">pages_to_scrap</span> <span class="o">=</span> <span class="s2">&quot;https://it.magiccardmarket.eu/Expansions&quot;</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pages_to_scrap</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">divs</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="s2">&quot;html.parser&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;alphabetView&quot;</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">divs</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="n">div</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;letterView&quot;</span><span class="p">}):</span>
+                <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">letter</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">):</span>
+                        <span class="n">title_expansion</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">singles</span><span class="o">+</span><span class="n">a</span><span class="o">.</span><span class="n">getText</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="s2">&quot;+&quot;</span><span class="p">))</span>
+        <span class="c1">#mkm_Scraper.save_title_editions();</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">title_expansion</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">download_editions</span><span class="p">(</span><span class="n">editions</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">editions</span> <span class="o">=</span> <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">get_title_editions</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">editions</span><span class="p">:</span>
+            <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">number_items</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="s2">&quot;html.parser&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">,{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;hitCountTop&quot;</span><span class="p">})</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">number_items</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">number_items</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">number_items</span><span class="p">)))</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">number_items</span><span class="o">/</span><span class="mi">30</span><span class="p">:</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="o">+</span><span class="s2">&quot;?resultsPage=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>  
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1"> Progress </span><span class="si">{}</span><span class="s1">% ...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">editions</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span><span class="mi">2</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">generic_save</span> <span class="p">(</span><span class="n">list_</span><span class="p">,</span><span class="n">nomeFile</span><span class="p">):</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">nomeFile</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">list_</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">generic_open</span> <span class="p">(</span><span class="n">nomeFile</span><span class="p">):</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">nomeFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> 
+        <span class="n">out</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">save_title_editions</span><span class="p">():</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Title_Editions.txt&quot;</span><span class="p">,</span><span class="s2">&quot;w+&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">get_title_editions</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">open_title_editions</span><span class="p">():</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Title_Editions.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> 
+        <span class="n">out</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">save_editions</span><span class="p">():</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Editions.txt&quot;</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">editions</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">open_editions</span><span class="p">():</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Editions.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> 
+        <span class="n">out</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">update_editions</span><span class="p">():</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">open_title_editions</span><span class="p">())</span>
+        <span class="n">new</span><span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">get_title_editions</span><span class="p">())</span>
+        <span class="n">new_editions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">new</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">old</span><span class="p">:</span> 
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nuova edizione trovata! </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="n">new_editions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">generic_save</span><span class="p">(</span><span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">download_editions</span><span class="p">(</span><span class="n">new_editions</span><span class="p">),</span><span class="s2">&quot;Editions.txt&quot;</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">download_all</span><span class="p">(</span><span class="n">editions</span><span class="p">):</span>
+        <span class="n">card_details</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;all_cards.csv&quot;</span><span class="p">,</span><span class="s2">&quot;w+&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">id_</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;ID;Image;Set;Name;Nome;Rarity;Availability;Price_Normal;Price_Foil&quot;</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sites</span> <span class="ow">in</span> <span class="n">editions</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span><span class="s2">&quot;html.parser&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span><span class="s2">&quot;MKMTable fullWidth&quot;</span><span class="p">})</span>
+                <span class="n">tbody</span><span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;tbody&quot;</span><span class="p">)</span>
+                <span class="n">tr</span> <span class="o">=</span> <span class="n">tbody</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">temp</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">td</span> <span class="ow">in</span> <span class="n">tr</span><span class="p">:</span>
+                    <span class="n">elements</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">))</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span><span class="p">):</span>
+                        <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">id_</span><span class="p">),</span><span class="n">file</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">write_special</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">id_</span><span class="p">),</span> <span class="n">file</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">id_</span> <span class="o">=</span> <span class="n">id_</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1"> Scaricate </span><span class="si">{0}</span><span class="s1"> su 41221... </span><span class="si">{1}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">id_</span><span class="p">,</span><span class="nb">round</span><span class="p">((</span><span class="n">id_</span><span class="o">/</span><span class="mi">41221</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
 </pre></div>
 
 </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Tombola</span><span class="o">.</span><span class="n">Statistiche</span><span class="p">(</span><span class="n">risultati</span><span class="p">,</span><span class="n">n_cartelle</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAClCAYAAAA9Iqi2AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-AAALEgAACxIB0t1+/AAAIABJREFUeJzsnXd8VGXWgJ8zJZn0DqGHXgQpgooUFSzYsIENu9h1dddd
-+yqu9dNV3LWj2Bu4imBZy4pio1cBRXoJpPc+5Xx/3BsyKTOZhCAk3Iff/HLnvW+b4c499z3vKaKq
-WFhYWFhYtDZsB3oCFhYWFhYWzcESYBYWFhYWrRJLgFlYWFhYtEosAWZhYWFh0SqxBJiFhYWFRavE
-EmAWFhYWFq0SS4D9gYiIS0RURDrva1sReV9E7m35WR4aiMhmERl5oOdhcWAQkSki8lUz264TkeNC
-qKci0qs5Y1iEhiXAmoiIlPi9fCJS7vd+yoGeX2tFRCaIyKY/ajxV7amqC/+o8SyajoiMFpGfRaRQ
-RPJE5CcRGSEil4vIj03oJ80UJo7qMlV9R1VPCqHt6yLykH+Zqh6mqt816cNY7BccjVex8EdVo6uP
-RWQbMFVV/3fgZmRh0fYQkVjgU+B6YDYQBowBKg/kvCwOLqwVWAsjIqNEZLGIFIjIbhGZ7v/kZ3KW
-iGwTkWwReVhExK/9tSKywXzi/ExEOoU47o2mWixXRD4SkfZmebXq8RrzfL6ITK/TNqQxRaSfiHhE
-5DoR2WN+vpv9ztdSa9ZdVYlIhoj8WUTWmk/V74hImIgkAXOAHn6r2SQRsYvI30Vki4jkmPXj/fqb
-KiI7ze/xdrP/0ea5aBF51/x/WCsidzUwl9GhfLcWB4Q+AKr6nqp6VbVcVb8C3MCLwEjzOikAEJHT
-RGSliBSZ18Q0v76+N/8WmG1G+q/ixGC6iGSZ7X8RkYEicg0wBbjdbPeJWX+biJxgHttF5G7zt1Us
-IstFpIvf2CeIyEbzOnyuzm/9ShH51fxNfiki3fbLN9mGsQRYy+MGbgKSMJ4YzwCm1qlzBjAEOBK4
-EONHgoicD9xqnm8PrATebmxAETkV+DtwNtAJyAHeqlNtAjAUGAZcIaYOvxlj2oGRQA/gNOCBJgqC
-ScB4oBdwFHCRquaac9+iqtHmKxf4K3ASMBrojPHdTjfnPRR4CphsnusMJPuN8xCQAnQz53lJE+Zo
-ceD5HfCKyBsicoqIJACo6q/AdcBC8zqpfqApBS4F4jH+v68XkbPMc2PNv/Fmm7qq45PMOn2AOOA8
-IFdVZwDvAI+b7c5oYJ5/wfgNnwrEAlcCZX7nTwdGAIeb/Z4MICJnAncD52Bcpz8A71U3EpFPReTO
-0L6qQxdLgLUwqrpEVZeaT42bgVeAY+tUe1RVC1R1K/Asxg8AjB/mQ6r6u6q6gQeA0dWrqSBMAWao
-6hpVrQBux3jyS/Wr84iqFpljfo8hQJs75v3mE3G1sLswSN26TFfVTFXNBj73m0dDXAfcqaq7zc/1
-AHC++RQ7GfhQVRepaiVwL7Wv5/PMz1WoqtuB55swR4sDjKoWYTy4KPAykC0i8wJdl6r6nar+oqo+
-VV2DIQzq/u4C4QZigH6AqOqvqronxLZTgXtVdYMarDYfvqp5zPyt7wC+pfbv7lFzLA/wCDCkehWm
-qqer6mMhzuGQxRJgLYyIDBCR/4pIpogUAfdRe2UAsNPveDvQ0TzuBrxoqhsKgGzAg7G6CEZHsx8A
-VLUAKMJYjVWT4XdcBlTv5TVnzEDzD4VA86iFKaS6AJ/7zW0lxjWbZI65dx7mDa/QbGsDUuvM0//Y
-ohVg3twvV9XOwECM//OnG6orIkeJyLemOrkQQ0DU/d0FGmc+xoPkc0CWiMwQYw8uFLoAm4OcD/a7
-+5fftZ0HCLV/sxaNYAmwludlYAXQU1VjgX9gXJj++OvIuwK7zeOdwOWqGu/3ilDV5Y2MuRvjBwGA
-uU8UC6SHMN/mjBlo/qVApN85/xVgY9RKi6BGmoR0YFydublUNQfYg5+QNW84cWZbH5BJbSHsP2eL
-Voaq/ga8jiHIGkqh8S4wD+iiqnEY+2TVv7tGU26o6r9V9QhgAIYq8W8htt0J9Gys/wDtrm3gd/dz
-M/o6ZLEEWMsTAxSqaomIHAZc3UCdO0QkTkTSMPbLZpnlLwL3ikhfABFJEJFzQxjzPeBqc+PZBTwG
-zFfVjEbaNXfM+0UkQkQGY+wtVc9/FXC6iMSLYQhyc8Ae6pMJtBMR/xXZi8Bj1ZviItJORKr3IWYD
-54phVh2G8aDg82s7G7jH/J67YlizWbQSxDAYuk1q/B67YKiqF2E+nJj/79XEAHmqWiEiRwIX+Z3L
-xrg2egQYa4S5gnNiPIRVUHMtZQZqZ/IK8KCI9DaNQQ4XwyipMV4E7jLvEZjX6eQQ2ln4YQmwlufP
-wFQRKcFQScxqoM5nwGpgGfABptGEqr6Hocr4yFQ/rgJObGxAVf0UeBTjCXQ3xsonJKOFZozpBRYD
-W4EvgH+oarWV16vAJmAHhgn0ew320DCrzflvN9UqicDjwP+A+SJSDPyMYYSCuf/2NwzrxXSMFVkh
-NWbW9wL5GCrO/2IINMsEu/VQjGHks1hESjEE11rgNmA+sA7IEJEcs/4NwD/M6+Q+jP9vAFS1DHgY
-+Mm8to6uM1Yshuak+nrJBZ4wz80EBpjtPm5gnk+ZY32FobafCUQ09uFUdQ7wf8D75u9uLXBK9Xlz
-G+Luxvo51BEroaVFqIhIP2Ctqh50/oOmlVoe0LGhDXgR+TMwQVVP/sMnZ2FhsV+wVmAWrRYRmWiq
-MqMxnoQXVwsvEekiIkeLiM1U09yCsVqzsGgyIpIqhp/jZhFZLyKfi0ifJvYR0opKDD+zZPO4pIlj
-XCiGH9saEfmiup+2iiXALFozkzGsvHZhWG/5h/IKx1BpFmOoOt/H2K+wsGgSpkXsHOA7MwTZAAwf
-rsbcW/a2Ny1j96tKUIyACf8CjlfVw4E1GHvsbZaDThVkcfBiWoIdNNeMqgbc51PVTRgWZRYW+8rx
-gFtVX6wuUNVVYER8AeYCCYATwydsrmmg9V8M36+RGHvLESKyClinqlNE5GLgTxhhshYDN6iqt6EJ
-BBqnbjXzFSUiuRh7e39YfNEDgbUHZmFhYREEEfkT0F1V/9zAOQcQqapFprpuEdAbw61lC3CMqi4y
-65ZUx1IVkf4YRkrnqKpbRJ4HFqnqm2LEWB2uqjnVbQKNo3Vu4CIyCUPzUApsxFiNNSgU2wIHzdN0
-c0hOTta0tLQDPQ0LiyazfPnyHFVNOdDzsNhnBHhERMZimN53oka1uL1aeDXAeOAIYKmhoSQCyGrG
-OHtdZUw3gOsxQsZtAZ4B7sIIq9YmadUCLC0tjWXLlh3oaVhYNBkR2d54LYuDhHUYMTwbYgpGLMMj
-zJXUNsBlnisN0qcAb6jqXSHOIdg41QwBMEPYISKzgTYdT9Ey4rCwsLAIznwgXIzo9MBe5+djMaK/
-ZJlC5Xj8IuI0gNtcJQF8A0wSkXZmf4kSPBp9KOOkY/isVa/sTwR+DeUDtlZa9QrMwsLCYn+jqioi
-ZwNPi8gdGJE6tmFkcVgHfCIiyzAMNX4L0tUMYI2IrDCNOO4FvjItFN3AjfjFNK3DO42No6q7ReQB
-4HsRcZt9Xd7kD9yKaNVGHMOHD1dLhWjRGhGR5ao6/ACMm4oREHcERmSSbcCtqvp7E/q4W1UfCaHe
-NuoYIzRhjPOBezDS93yqqneE2tbi0MFagbVxnrtufpPb3PjiuP0wE4sDjZ8/0xuqeoFZNgTDGKBR
-AWa2Fwx/pkYF2D7MMwkjlNMRqpotRk6w8ar6TUuOM+e/gyOXZQ45qsLjPMqmnmERjvJu0WEl8eF2
-twuHuN2xkXYVW1UV4WUee1iBHd9OH7blNnxf3DvuzQ0tOReL5mEJMAuLQ4fW4s/UA9ioRs44MOJh
-nouxb9QsOr+0IH6i952bU8Kyz0yNzevVMTY3Nja8XMZ1/bGpXV0C8PE3gzVT2xfnS9L2Qon/xYvj
-g8fHPdNQrMRm0xpWyyISg5GMs5rOwNuqemuoc9wXLAFmYXHoMBAIlCanAjjb389IROaZ5/oCV6jq
-DQAiMllVh5jH/YHzgVF+/kxTgDebMk4df6ZNQF9TeO4CzsIQjk0i9aUvjsLnfVQSYo7SHjGR0aU2
-xsauaWo3DRIjJRIjJbGweRAwCLjog28WerdL9/U7qnq8sWXPkH9/esWF7ub231pWy6pajF9SWhFZ
-Dny0v8ariyXALCws4CDyZ1LVfBG5HiOTgw8jC0FIObc6XftyjDct9mXSOpxJ7/YuRPYm9FrmOZKT
-+TqUbppFouTbE8kfVFqc/E/X7q1PXPbMi6sLImOemnvVlLea0V1rWS371+8DtKP2imy/Ygkwi6A8
-ef7pTW5z26xP98NMLFqA1uLPhKp+AnwCYJqvB40mkXTDw70cvfp9JKcNHkRMw4u1bc7m5J1sGj6E
-qh3JRLqrpHtuxhByM968+fEnn8uMS7p/9rWXT29CV61ltezPBcCsIOdbHMsPzMLi0KG1+DPh118C
-Rq6vBgMxJ/7936Pbz/h0m/PMCRtlaM+AwgugLDqWIm/IhpDNYoc3DWexvVZZUllxzIA925664Z/T
-889+5a3rWmCY6lXsGoz9weaslleZ74Ml6ww2TkNcQNNyAO4z1grMwuIQobX4M5n8S4yM32AkTa21
-7xN3wS39XCPHfh42dnR3HCE+h9uE74uO5fS4z0Kr3wx2FfQOeK5dSWF8u5LCF6596t8P7Y5P/usn
-V170epCuWs1qGcD8v3KoaqBV437BEmAWFocQqrobOC/A6ZEBygfW6eMO4A6/97NoIPO4qqb5HUeb
-f3OCjOPf9sKGyiMGjoyMmnjJnIgpU04iusl2HSz3Ded09p8Aq9qRjLOROh2K8pJSi/Jeu3r6Mw/l
-RMdPmHP1JWsbqDYfY/VzjarOAGO1DETSjNWyqroxVstzRWS6qmaJkfU8RlUDPWw0ZZwL+YNXX2Cp
-EC0sLFoJsefdcGbcrfflOE48plnCC2BHWPcWnlUN27zd66kPAyFAp8LcTn0zd6yZ/NLrj9c9b+4j
-nQ2cIEYSzXXANGA3xip2uLmKnUJoq+V3VHU9UL1aXgN8DXQI0rYp45zHARBg1grsIOfXfv2b3Kb/
-b206/JnFIUbfob0iu40bOy/5ssvGlUXGyb70VREZTa47gSRnfktNby/B1IeBcHncctiebX/7v+l/
-OiMpZveYqVP/k1N9rrWsls26wfbS9huNrsBEpI+IfCMia833h5s6bwsLC4v9Sv8hPXsdNemELetP
-vWH8vgovAGzCd2XH7fvEGqBqR1Kz25YXJvbLye26a+ar55zSglNq84SiQnwZI6eMG0BV12BYmwRF
-RF4VkaxqwWeWJYrI1yKy0fybYJaLiPxbRDaJyBoRGda8j2NhYdFWGDO884mjrjnvl6+Oua69x9Zy
-yqJVvpa/vWz3dsdZvG9zrCiPDd+d3u/zF164+MEWmlabJ5RvPFJVl5hOitV4Qmj3OvAstX0M7gS+
-UdXHRORO8/0dwCkYWUx7A0cBL5h/LVo5u+5suk9j58fG7IeZWLQmjh474NKON98289Oux7f4Nkd6
-WDBbhOaxsxnqw4bwesPIzOxx73PPXxp74w1v3tIinbZhQlmB5YhITzAc2sVIWb2nsUaq+j2QV6f4
-TOAN8/gNjBAx1eVvqsEiIF5Egm0uWlhYtEFcxxwrwyaMvCvypjtf+3k/CC+AyqhIMqtaNhn2vqgP
-62MjOyvtTy+8OOXZFuy0TRLKBXIjhiVLPxFJB7YCFzdzvPaqWi38MqhxiusE7PSrt8ssqycoTSfM
-awC6du3azGlYtBamTZv2h7SxOPB0O+IwW/9O7Z6wX3Xnn9fHdtv3/a5AiPBt2fFcEDa7RbprCfVh
-fWxkZvS8ccaM853XXDPr2hbuvM3Q6LeuqlswTDmjAJsZvHGfMZ0qmxxyxPSJmAFGPrBgddPubLq/
-x7bHTmtyG4u2Teq3q5rcJuP4IY1XstjLgCE9pH1y/PTwK66/eeP+FF5A2Yfv8s689/jalsmpp8Vy
-7rlxtc7v2FHFE49ns2lTJVdcmch558UDUFDg5f77Mygt8XHFFYmMGh0FwON3b+a0sYOJiYlp4Zna
-2LOn7zWvvDLJMXXqf65q4c7bBAFViGbQR0TkLyLyF+Ba4Gq/980hs1o1aP6tDvqZDnTxq9fZLLOw
-sDgEkLCwvydfdf1NG+P77Ffh5dm6ibLPPiLhqTeZ8XJnFi0qIz29dtD4mBg7N96UxOTJ8bXKv51f
-wkknxfDvZzoxe3YBAAt/LiUlsct+EF4GqjbS0wdc+dJLF/5zvwzQygm2BxZl/o0J8GoO84DLzOPL
-MCIdV5dfalojHg0U+qkaLSws2jA9Bve9Zuhxp9ydEdd1vwdW8GzfirP/QLxJCez2dGbw4S5+/KF2
-9KWEBDv9+rmw19FP2R1CVaXidisigtervPNhFWOH71+jI1UbGRm9bnvxpYsu3a8DtUICXjCq+pKI
-2IEiVX2g7quxjkXkPWAhRl6fXSJyFfAYcKKIbAROMN8DfA5swcgD9DJG8E4LC4s2zoDe3UYOHTz8
-qR9tJ4T7FhbQv3DTfh3P0b0n7l9W4iss4H/5o1m8uIys7FCMqmHcuGiWLivjrjv3cOllCcybW0Tf
-YwbjdDYWPGrfUbWTl9v51VdfPadlzB3bCEH3wFTVKyITgaakAahu22AsM4wIyHXrKoaxiIWFxSFC
-/97dOnbo0fvtXzpOigIocEdTuriKIw9fyZLUoQHblX34LmWffQSqRJx2DlGTptQ67ysuoujxaXj3
-7AJnGHG3T8PRvRe+gjyKnnwQLS8n94ZLmBsfw3G9wliyuIycCz0kJwc3CYiOtvHII4ZxdHGxl/ff
-K2DcpCOZ98E8KioqGDlyJF26dAnax75QVRVpz89P/enVV89uf+WVc/6wlCUHM6Es2X8WkWdFZIyI
-DKt+7feZWVhYtFl69+7pcLgiX6oYclGPKr9ky24NY83qdozatAhRX7121XtYSc+/RdIrs6ha9D2e
-9B216pS+MxNHr74kvTKbuLsepPjZJwComP8FrpPOIOmNOdgTk4j756sUFfro0sUZVHg98UQWk87d
-xtSragylX52ZR26RnecfepadO3dy0kknMX/+/HptV61axTPPPMMzzzzDqlWGMZDH4+Htt9/m+eef
-Z+nSpXvrfvLJJ+zZE2znREkmKuWIkmF/WMbjg51QBNgxwGHAP4AnzZe1oWhhYdFs7HhvGj7m2BN3
-S8PppZZv7sKINUuJ8JbXKq/ewxJXBGJ34Bx8BJU/zK9TZwthQ0cA4OjaHW/Gbrx5uWB3QFUFvuws
-sNmoyM9h0eJybvtrctC5nnxyDI8+WuOWumuXm5UrK+h15ADGjBlDcnIyixYtwuOprYosLy9nwYIF
-TJ06lalTp7JgwQLKy8vZvHkzHTp04Prrr2f5ciP7SEZGBj6fjw4dGnZ/dToqGOuKY3z2RBIyRp61
-asZfTw066UOEUMzoj/8jJnJQMi2u8Tr12hS2/Dws9olv5jc9E+/4cZv3w0wsAIb26dC9Y8duf/45
-9uTwYPXWZHSme9lv5A7rQla4IWQc3XtS8uqz+AoLkPBwqhb/iKPPgFrtHD37UPnDfMIOH4b717V4
-M/fgy8nENf4UCh++m5KZzyIxceTfciV9Th5JUtIePvmkCIAzzoglL8/DDdenU1bmQ0SIiBAeeTR1
-b/+vvpqH260c1nskYR2drFmzho0bN3LOOefUmsemTZvo0aMHERERAPTo0YNNmzbhcrnweDx4vTVJ
-pr/99ltOP73h7OcpUUWMKx5DTInxHdh84URnDXt3150/JHV+bEzQTNVtnVCC+caJyFMissx8PSki
-zbizW1hYWECJRtwXO3xip0oaT4mytagdzp9z6FO0BQBHtx5EXXA5+bffQP4dN+Lo2Rex1U5hEnXh
-FfhKism9+nzK5ryPo3dfsNmxRceQ8OgztPvsZ5JenoUjrQfO827iySezWbG8nJ49jPkkJjp4f1Y3
-5n3Snbnz0nh/VjciI2tulffd156iEkggnqioKK6++mocDgcDBtQWpMXFxcTF1dwqY2NjKS4upmfP
-npSUlDBz5kxGjRrFhg0b6NChQz1TfBEvg6N9nJl7NjFVtVeJrpIucSXJq54J4etu04SiQnwVKMYI
-638eUAS8tj8nZWFhASKSKiLvm/mg1ovI5yLSp4l93B1ivW0ikmwelzRxjCNE5BczGPe/pU7gVH8G
-9O42bsDgwyeucg4OLXEWkFsVQ+ZiYXjmagAiTj2bpJfeJfFfryIxsdi71I5taIuKJu6OB0h6eRax
-dz2IryAfe4dOteqUvjWDqClT2bFkDX36hPPXv6Uwc2bdyHeB8WnNrVNECPKR62Gz2Tj33HO59tpr
-GTBgAIsWLWLkyJF8+eWXzJ49mw0bNhDlKuE0Ww9G5JwYsJ/worSr17xwT2TIA7dBQhFgPVX1flXd
-Yr4eAA5I7hcLi0MFUwjMAb5T1Z6qOgC4m5rwa422FxGb2WZ/8wJwNTUBuSc0VKlP7+5hlc7oBzJ7
-npXQ1AEqfWGsXZXIqK2L8OUbgsabuYfKH+bjGl87A4mvpBh1G87J5Z/NIezwYdiiovee9+zajjc7
-i7Ahw/F5PWR4UhGBqqrQDfuioqIpLjaCEhUXFxMVFVWvTkxMDIWFNVsKRUVF9VZZS5cuZfDgweza
-tQu73c6kSZNY/NN3nFt0MqmlvYLOwVkV77B5It4MWqmNE4oAKxeR0dVvRGQUUB6kvoWFxb5zPOBW
-1RerC1R1lar+ICLRZo6+FebK50wAEUkTkV9F5HlgBTATiBCRVSLyjlnnYhFZYpZV+3o2SKBx6tTp
-AMSq6iLTHeZNaoJ018KH7aqhI8cMy5CUZkbbsLH89y54/3YNuZefTcE9txBzy53YomMom/cBZfM+
-AAwjjtyrJpFz6VlULfmJmJtur9VLyczniL7K8NpxjZvA/74q4uab0pl8Xmg7Izu8afTt1ZfVq40V
-4erVq+nbt2+9er169WLLli2Ul5dTXl7Oli1b6NWrRiiVl5ezceNGBg8ejNvtxm73McYVQ3hFJGE+
-V0hzicoZdM7PH044ZAOfhxKB8jrgTb99r3xqomlYWFjsHwYCywOcqwDOVtUiU+23SETmmef6Aleo
-6g0AIjJZVYeYx/2B84FRquo2Bd0Uaqc8anQcU1BV0wkj+HY11YG4azGoT+d4nHE3bEsZs88qr5jJ
-/2JofCZ7hnYnN8xYzEVOnLz3fNhhg0l+c26g5sTf//jeY1tCIqmPPsf0+MCZSx5+KJPVqysoLPRy
-wfnbOWZSF0aPHs1//vMfVq5cSVxcHJMnG+Pv3r2bZcuWMXHiRCIiIhg7diwvv/wyAGPHjt1r0AGw
-YMECxowZg4hw5OHt+HDpb9z01PNcPLTec0JAnJWJEp05/FWMlFSHHKEIsCJVHSwisQDmxdx9P8/L
-wsIiMAI8IiJjAR+GwKhWLW43UxI1xHjgCGCpuWcTQU080qaMk9HUCVep46Ijhg3qspj4xiuHwKaC
-9rRbuJu4I4rYEr1v+b1yIlODnr/n3tpa2/mrRuMscnDppfUjO3Xs2JGJEyfufT906FCGDm3YKXvC
-hAmIeBkY5WVEzjmcN3lyg/UaIyZz+EnL3rwievilrzW4dykiqcDTwAigEtgG3Kqqv4c6hojcraqP
-hFBvGzBcVXNEpERVoxtr49c2DCOH5HEY19s9qvphsDahCLAPgWGqWuRX9h+MH4JFEAa9MajJbX65
-7Jf9MBOLVsg6YFKAc1OAFOAIcyW1DajWOZUGaAOGQHpDVe8KcQ7BxqkmHSP4djX1AnEf1rurvQLX
-pTkdx7ZoxNusingiF1UwdPBaVqYMbHY/vnAHK0sHMzRydaN1d3i74SxqmdQpka4SjvcMoEPOvkWH
-clYm2SLy+/wbuLLuOb+91DdU9QKzbAjGg0ijAsxsLxh7qY0KsH3kHiBLVfuY+7eJjTUIFo2+n4ic
-C8SJyDl+r8upfxFbWFi0LPOBcDP/HQAiMkJEjgXiMH7obhE5Hgi2BHGLSHWwvm+ASSLSzuwvUUSC
-tW10HDPodpGIHG3e7C6lJkg3AJXCROnbvcdmW7cWD9Zb5nXx24o4Rm1fsk/9/FQxKqR6OwubZAQa
-kG4xJUwqOpEOJS0T2tCROfjcAKdaxV6qyZXAo+Ycfaqa09jnDnZB9QVOB+KBM/xewzAsjiwsLPYT
-5j7T2Ri5+DaLyDpgGrAbeAcYLiLLMFZJvwXpagawRkTeUdX1wL3AVyKyBvgaCGYAEOo4NwCvYATj
-3gz81/9kli38UvoNb/RpurkoNpb/1omR6xfi9Lkbb9AAv9sHNF4JqNwZPGpHYzgclYx2RXFi9pmE
-+VrOAj7KFxP7xT3vNGT9Gcpe6jAMQfeknwtEX+BNVR2qqlcA5ao6RFWn1NlLHQJ4Ma6PQAQbBwAR
-qdYtP2gKug9EAoRp8SPgWlhV5wJzRWSsqn5fZ7DQHlcaQET6ArP8inoA92EIyquBbLP8blX9vLnj
-WFi0dlR1N4bvZUOMDFBeS5emqncAd/i9n0Xt3191eZrfcbT5NyfIOP5tl9Udt5qoAT07qDP6MMKG
-2Kkf2rBFWbmzKwNKV7N9SG8KnE2LtZAX2Q6vCvYgOXZ3ervhLGy++jApqojxJaOILWnX7D6CEaFh
-dwFfNKHJwbSX6sBQP/+sqtU5J/8JXBLsA4Tyv/E0xqrLn2caKAsJVd0AVFtF2TH05XOAK4DpqmrF
-WbSwaCuo7ayYQX0SaGS1UbRsLiWrvwSF6MEnEzuitpbJW1FC7udP4ynIQBxOkk65hbCUNLxlhWR/
-9DC+yhLix1zChj4j6bBoB5mfP4fjtn9gTw5NWGiYnWXFwzkqemnAOjuaqT4U8XJYlHJkzkRshOy/
-3WSSfDENPWy0lr3UXKAMqA5U/AHQaBbqYHtgI0XkNiBFzCzM5msatNj/wnhgs6pub6H+LCwsDirs
-p7g69Agqvaqyt1Gy+ktSL32KDlc+Q/nmJbjzd9eqU7RwNmHtetDxymdJPu0v5H8zA4DS9QuIGjiO
-1Iv/SdEId/BgAAAgAElEQVQS4963ec1GHGFdGSa5TZrpz+7giqXmqA8jw0s5xd6No3NO3q/CCyCe
-KOcn97w5uk5xa9lLVeATDAtEMGTD+iB9AsH3wMKAaIxVmn8m5iICS/SmcgHwnt/7m0RkjYi8KiJN
-9ta3sLA4eIg+LM2lau9ti+gaNGivO3cXYR36YnO6EJud8C4DKfv959p1cnbg6nY4AM6kLngKs/CW
-5iN2B+qpQr1uEEF9XoqXzSVixPlsXBbFMTsDr6jqsslW3xm5mlDUh3PnzuWJJ57g+eefB6BrTDEn
-ZB3FX195iTEzLuSi9/9CQUVxvXa7CjM45fWrOPm1Kxn/yqW8tdKwgan0VHHx7L8yfuZlvLFizt76
-d3zxBL9kbGhwDrEacbn/+1a2l3oHMM3s8xLgtiB9AsH3wBYAC0Tk9f2xQjJt/icC1cvQF4AHATX/
-PknDZqHXANcAdO3ataWnZWFh0UKo2o6wuRwO9XYKuvQIS+5Gwfdv4i0vQhxhlG9ZRnhqbes8Z7vu
-lP2+EFeXgVTu3oCnMAtPcS5RA44lZ94TlK6bT/yxl1O84jOiDhuHzenCB6xY35FjSheypM8IPLbg
-AqgwKgm3z4HTVj9D847Cxq0FhwwZwpFHHsnHH3/EqIhI+meP5+GfX2BU2jBuPPpinlv0Ns8vepu7
-j7u+Vrt20Ul8fPELhDvCKK0q44SZl3Nir1GsyfiNQal9eXPy45zy+lQuG3Y267M24fV5GZTasLCN
-0Yh62UNa0V7qdmBsY/X8CaZCfNo8fFZE5tV9NWWQAJwCrFDVTABVzVRVr6r6gJeBIxtqpKozVHW4
-qg5PSUlpgWlYWFjsH2wjovp2i0OdQWs5k7sQe9Qksmb9nazZ9xPWrgdI7VtT3NGT8VWUsvu1myle
-8Slh7XsiYsMWHkW7ydPocNnThKX2onzTEiL7jiL3v/8me84jVKb/yortXTl85QpiPMFjFKvTzsKy
-oxo8V7mz8XtNt27dSE30EKsR9M837tdfbfqRSQMN48BJAyfw5cYf67ULszsJdxiR8Ku8bnxmIk+n
-zUGFuxK3t0agPvHDK/x1zNSAc4jTyLRGJ9qGCPZI8pb5d38ZVVyIn/pQRDqYPiVgLHnX7qdxLSws
-/gjUNja8U1pE4xUhZvBJxAw+CYD8BW/giKm932QLjyT5tFuNblVJf/EqHPG1I2gU/vQeccecR+n6
-BYSl9iJqwHFkffQgqRc+yvqcTnRetIW4Ye3YFSTyxpKqkYzlp1plO71dG1UfingZEOWjY+aJvK/f
-7i3PKc2nfbTxWdpFJZFTmt9g+91FmVz2nzvYlp/OPcdfT2pMMslR8Xy47ivOfOt6rjvqQr7a+COD
-2vchNSbwXlw4TtuPd3/YZfQj5+4MWKkNEex/ZZyIZJqqxBZFRKKAE4Fr/YofNz3EFSPUybUNNLWw
-sGgFRA/qEKaa0McekebSEFIueksLsEfF4ynKouz3hXS4pPZzs6+iBHGGI3YnJau/xNXlMGzhNbYh
-7rx0vMW5uLoeTlXWVsRhbLupp2pvnV2lScQtKuKwoYWsS2hYBbfZUV9V2Jj1YUR4Kcd6e9M5pz87
-2ROwnogQKIpxx9j2fH3l62QU5zB1zt2c1vc4UqISeXbifcbn83q4ePZtzDznUR745ll2F2Vy7sCT
-Oal3XZsNKJCy04AX651ogwQTYB2BhabJ43vAB6qaHaR+yKhqKZBUpyyovb+FhUXrQb0RfVFxqnYK
-yXEq++NH8JUXg81O4onXYXNFU7zScAONGXoq7tyd5Hw2HURwJncl6ZTawXcLvn+L+LHGLSSq/7Fk
-f/QQxcvmETemtn9toTuK0qUejh64nEUd60fDK4pKpMIXhstWI/gqd6YQSAnaJaaE4/JOINxbP50K
-QHJUApklObSPTiazJIekqOC2aakxyfRN7sGSnWs4rd9xe8vfXDmHcwdOYMXudYTZHTx/5jTOfPv6
-BgWYwLEc6gJMVf9sOpONxbAW/LuIrMYQZh+pan1zGgsLCwsA7L0Js9OY/1c1qVMer1cWM/TUvcfh
-nfrT6ZoZAdunnHVnzchR8aReEnjnw6MOVv2SyuiShfzc+0h8/lGQHDZ+KhrN+Jj5QGD1ocNexZHh
-cQzIHh/0c53YaxT/WfsFNx59Mf9Z+wUn9aovcPYUZREfEUeEM5yCimKW7lrD1BE1gX0LKor5ZtNC
-3j7/n3y96SdEbIgIlX6rS3/C1BHYnLKNETQ2mRosUNXrMbykpwO3Apl/xOQsLCxaLanhyXERoaUc
-PDAs29qVI1YtI8pTVqt8ibvGfqwh9WFCZBFneYcwIO+YWuU3znuAs966ni15Oxjx3Lm8v/pTbjx6
-Cj9sW8aYGRfy47bl3HC0sSJcvec3/vbf/wNgY+52Jr51LSe9egWT372Za4+8gP4pPff2+/RPr3Pz
-MZdgExvHdj+SNRm/ceLMy7lo8BkNfq4IX1jw8PptiJCW9yIyCGMVdj6QQ43pu4WFhUV9VLo6E+KD
-mx8eBPyS1ZluS36ncFgnMlyGpeE2Z03SycpdNepDER/9oz0cnd1wRI3nJt7f4BjvX/B0vbLBHfox
-uEM/AMZ2H8HX3V8POMdp42/ee+xyhPPu+U8F/UyRhDctjlYrJqAAE5HeGELrAoxgje8DJ6nqlj9o
-bhYWFq2UWF9lnzNjVkVNj5hCgc1BgTgpkHDyJIJ8IinQaPKIId8XR57Gk+9LJM+bTJ4nhTL9Y++/
-24tTSFiYS79hRfwW15OSqDhKvRHkk4yzwLhFRoSXMtbbiy7ZoQX9PZBE4zpksoUEW4F9gbHfdb6q
-WibtFhYWIdPZlh3bPjxSIlSJ8LrpgBsj1F3DZuSAEaDODpUIBTY7+TZD6OVLBAVEkEc0BRpDni+O
-fI0nz5dIrjeJfG87Snz7FrgnvyqG0iVujhy0iiWpQ1hQNErj3IbRYOeYYo7LOwGXN+TcjAeUMBwH
-r962hQlmxNEz0DkLCwuLYNjE64h1+iowwtE1iXCU9j4P7X0eoBwoCFzZFHpVQKHNYQq9MPIlgnwi
-yCeafI0hT2PJ9xlCL9+bRJ63HUW+ePzDulb5nKxZncLw4sWsSTyco7dv0aPDwhmcPT6Q9bvFAaZl
-UotaWFhY+GFX7GF/4HhhQIrPQ8peoVcYuLIp9NxAoc1Oga1avemiuCqCsi1RLNnW2zeovK8twpYq
-m23bsGHHLjbzrx2b+W9vWfV7v7/2g9iApa1gCTALC4sWR4BiLyG4MB84nECyz0uyz4uRc7GQleUR
-PBafwgVf5Nh3dz+KPRWf4tHKZo8hYsdmcyC2MEPw2RyIzYFdHNhsDmxivmz2vcd2sfuVVZfbjDYY
-ZdWC0zi2s1eMig0QXp82zTZt2rT9nIHtwBOqFWIYUG1PukFVm5f21MLC4pDAJ1QWeRpPYfmvRZW8
-vMKNAlcPc3Lr0bUD1/+W4+WKuRWs2OPl4XHh/PUY43x2qY+zZ5VTUKE8NC6cs/oZtoJnvl/GC6e5
-6BjTtNXPlsownnIl8X1/Jxd924XemdtI79ebMHucOss/lXJv89xeVb14vV7wVlI/RPD+wWezM+29
-uW1eeEEIAkxEjgPewAjvJEAXEbmsbpZmCwsLi2p8UFFUReD0xsDaLC8vr3Cz5Ooowuww4e0yTu/j
-pFdijfBJjBD+PcHFx7/VfmZ+b62bywY7uWCgkwnvlHFWPyefbHAzNNXWJOGV5XbwjCTxSe8wvHYh
-pSCCU5dnYMeH+ErwOTuIw36eRpfNlRJ3ThO/hQODihzUK9+WJJT/6ScxzOePVdWxwMkYDs0WFhYW
-DeJFKooqg0dB/DXbx1Gd7EQ6BYdNOLabg49+rS2o2kXZGNHJjrOO25XTJpR7lEqvYhPw+JSnF1dx
-+6igqcf2UuKx8WRlMqd368DHvcPx2g07jVs+S8HpKQfA5ikCwGOLE406j/jwLiH1faBRsR0yGrJQ
-BJhTVfdmT1PV3yFgaDALCwsLvEJRSb4n6I10YDsbP+zwklvmo8ytfL7Jw87C0DRfFw1y8uVmLxPe
-LmPaseE8v7SKSw53EukMbjDo9sFr5Ymc0rETr/eLpDy8pv5xazvSZ0eNm6vdXWMI4hUXlRFnk+wK
-Htj3YECh+Zt2rYxQ9sCWicgrwNvm+ynAsv03JQsLizbAnuIstxcCr4j6p9i5Y1QYJ71dRpRTGNLe
-ht0WmsV6nEv47CIjzmJ+ufLYT5XMOT+Sq+eVk1+h3DYyjJFdat/e5pbH8XyHGHYn1H9uD6+yc8k3
-pbXKwqoK8JfAKg6KXafRzh5FVunKkOZ5IPDa7LkHeg5/FKEIsOuBG4E/me9/AJ7fl0HNCPfFGBE+
-PKo6XEQSMTJ8pmHst52nqkG8Hi0s2iYikgo8DYzAeJreBtxqaj9C7eNuVX0khHrbgOGqmiMiJdVZ
-dEMc42HgUiChbjtRdleVq6uiStQVpgGl0lXDwrhqmGFwf/c3FXSObbrp+YPfV3LPmHDe+8XNER3t
-XDTIyZnvl/HtZcbt7YfyKJ5Oiuf37oETQ1/7dVdiyjbWKguvyKe0Tj0RoSjseNpLNJklP+wtn7Vk
-Nev3ZBEdHsbfJhwLwOqde/hq3e9kFZXwpxNG0SUxvt64BWXlvLd4FcWVVQhwdI+ujOnTHYBPV//K
-hoxsOsbHcuFRQwBYvn0XpZVuxpp1GsLrDAv5OmntBL1aRMQOzFTVp1T1HPM1XXUf7EprOF5Vh6jq
-cPP9ncA3qtob+MZ8b2FxSCEiAswBvlPVnqo6ALgbaB9qexGxmW32N58QIHN6VBmFrgpcxXn2oIYc
-WaWGynBHoY+PfvVw0aCm7U5szPWyq8jHcWkOytzGfpgAFR5YW+HiSkdHbhiQxO/tAwuvXnviGbl2
-a73yyIq8gG0KnSNoH3sKYt5Ch3fvzNVja38VqXHRXHbMEXRPSQzYj02EM4YM4PYJx3Lz+FH8tGk7
-GYXFlFe52Z6bz20nj8Wnyp6CItweL0u37mJUr25BvxNbZPRPQSu0IYKuwFTVKyIpIhKmqg3H7m85
-zgSOM4/fAL4D7tjPY1pYHGwcD7hVdW8+J1VdBSAi0cBcIAFjH/peVZ0rImnAf4FvgZHAKiBCRFYB
-61R1iohcjKFFCQMWAzeoNmxkEWicuvVUdZFZv14fUW5WiIP8nEJxpaQSE+jDnju7nNwyxWmH5051
-Ee8SXlxm3GquGx5GRomP4TNKKao0hNPTi6pYf2M0sebe1T3zK3l4nKGmvHCQk7PeL+efi9z0Pb4d
-F/VNRENQSd70WQR2X30Lw6iy4Jq4Qnt/kuMiyS+aR8+UJPJKa0e1bx8b8GPvJTbCRWyEEbrQ5XTQ
-PjaaovIK4iMj8PgUVcXt9WK32fhuwxZG907Dbgu87lAEX3TcnEYHbiOEokLcBvwkIvOgZkWtqsFD
-IgdHga9ERIGXVHUG0F5Vq9OZZhDgiVNErgGuAejates+TMHC4qBkILA8wLkK4GxVLRKRZGCR+bsE
-6Atcoao3AIjIZFUdYh73x8gkMUpV3SLyPMZe9ptNGUdVg66m/FFlow18W3J9Jf0JLMB+uKJ+Isjr
-htfE8EiNtrHrL4EFwezJNfnGnGEOJlzWnY/TwtnWiDFHNecu6krH7Ibjk8eWNr6VVGzrRmzceZQW
-fYwR67H55JWWkV5QSNekeFxOB4d3TmX61z/Sq10SLqeDHXkFnHhY/YzR/njDwvW+xx5ft08TaUWE
-IsB2my8bQS7EJjJaVdNFpB3wtYj85n9SVdUUbvUwhd0MgOHDh4f8g7KwaAMI8IiIjAV8QCdqHvS2
-V6+IGmA8cASw1FwtRQBZzRgnI9SJfrm7wn1Kl/DdP+yuktOwdwi1XXMo98IrnmTeSYug1BV62ML4
-Ehdn/hT4a4gqL0DVg0jw22SZtMcVez6RZW+FPHZdKt0e3vh5OWcOGYDLaahRj+/Xk+P7GSFpZy9d
-w8kD+7B4yw42ZOTQMT6GEwbUF2ZVdkdgvWcbpFEBpqoPAIhIpKru2yNGTZ/p5t8sEZmDoUfPFJEO
-qrpHRDoQ/AdmYdFWWQdMCnBuCpACHGGupLYB1akz6tob+CPAG6oaah6/YOOEjPpk2Zpid6eKUqe6
-onwtHhDX64P3KxN4uUs0uTFN7/6mz1NxVW0KeN4GiLcYHI1Huq+UeIg6HbssaPI8vD4fb/y8nGFd
-OzGoc31Zn55fCCgpMVHMXbmeG8eN5O2FK8guLiUlpvYKNtGbEOghpk3SqMmPiIwUkfXAb+b7waYK
-olmISJSIxFQfAycBa4F5wGVmtcswdPAWFoca84FwU1UOgIiMEJFjgTggyxQqxwPBdvPdIlJtEfEN
-MMnUeCAiiSISrG1TxgnGd4pKeratRR58/flveQwT4zvz2ICYZgmvEZvaM2jz5kbrVTszh4JXIlBb
-LImuHiG3UVVmL11D+9hoju3bcLsv1v7OyQP74jP3xMDYd3R7629hpjji3gh58DZAKCrEpzGib8wD
-UNXVpmqhubQH5piqDAfwrqp+ISJLgdkichWwHThvH8awsGiVmOrzs4GnReQOjP2obcCtGKuzT0Rk
-GYahxm8BOzLU7GtEZIVpxHEvxr6zDSMQ+40Yv7OGeCeUcUTkceAiIFJEdgGvqOq06vM2p/6E4luw
-zZ3ZM01Cv6sHYXF5JNMTElgXxCS+MWxeYeqXHiR4pCsAHO5CqkJYe772v4fYuGc1JRWF/OXD9zhn
-8Ai8ZPHxynWUVFYx84eldIyP5Zpjj6KwvIIPlq5h6tgj2ZaTz/Lt6XSIi+Gprwyz/FMG9aV/h3YA
-rE3PoHNCHHGmoUe3pHj++eX3dIiLoWN8bK05hNkidGfZ2o+a+HW0akIK5quqO+tYGjU71paZ0Xlw
-A+W5GLp6C4tDGlXdTeAHuJEBygfW6eMO/Kx4VXUWhp9l3bHS/I6jzb85Qcbxb3s7cHug859vqyw6
-pWv4io+2Vgy+5OhInK7mb1lvqAxnekQiPw3Y9yBAV85PI6FoY+MVMZyZQzG/vuKEe+uVxbl/ZlDn
-1PrlES6mmib33VMS+ed5pwXsd2CnVAZ2qunjjCEDOCNA3Shbu903v/dcrXtzK/Ip/A7ogJELB4zw
-hY1uI4UiwHaKyDGAmiqJW4BfQ52YhYXFoYv65EOfXUds3uEo6dfH3aTkltMXVvLiCg95YsfTHTpO
-rZ1hK29+HrnzcxERbC4bHS/viKuTi9KNpex+YzfiELpc14Xw1HC8pV52PL+D0ZcNYtzKHSHPwVWR
-T0lTJu1HofMY2sdEk1X8DRrCam9fEV/E07Xe1/gUvqGqF5hlQzC0YI0KMLO9YPgUNirAWoApqtqk
-KE+huL1fh6Fu6ASkA0PM9xYWFhbBUb4C8Xy50b2n8co1/JoHDy72EjWtD6lP9MGnULi4dpLKuJFx
-9H6oN70e7EXyqclkvGcYSeZ+kUvXm7qSOimVvG8No7ysT7JIOT2FP/03Hoc39DgMkRX7FpWp0HE4
-KbETsTdiybivRNhife8uW/hkneIGfQpV9QcRiRaRb0RkhYj8IiJnAohImoj8ato5rABmYvoUisg7
-Zp2LRWSJWfaSGfCiQQKN01I0KsBUNUdVp6hqe1Vtp6oXm+o+CwsLi6B8kV5R4vOy8Kusck9ZgaPR
-ZUilF2ZUJHFJh1SK7VCOol5FqxRHQm0hYI+ouW/6Kn3GWgHADupWfFU+xC5UZlXiznMzqaI/3Xdv
-a9L8o0LwBWuMIntPEmIn4bQ12ZAzZHyeyB+/3vhT3e83FJ/CYRiC7kmp2SfqC7ypqkNV9Qqg3Iya
-NKWOT+EQjO2kKUGmFmycurxmCsW/B6lTi1DygXUHbsaIUbi3vqpODGUACwuLQxv12uao3Tf2l22S
-d9QQkhqq41P4sCKelzpFkxlnPFcnT0jm99t+R8KE6MOiiRlY3w0193+55HyZg3qV7rcb8QFTTksh
-/bV0bGE2Ol/TmYz3M0g7rRPnz2l6aNXY0pbJAVZi60hUzPlUlsyh3Bu6ZWMo2MXJzsLMC5vY7GDz
-KZxi+gbHAB8ClxDY0X4voaxrP8ZYRn5iTsDCwsIiZLxu+crmpPDF9SXFwwe4kuxhtRcK88tj+FdK
-HFt61CiEvKVeilcW0+eJPtgj7ex4bgcFPxcQf0ztgLhJJySRdEISBQsLyP4km85XdyaiWwQ97zMc
-gEs3lOKId3DRD6n8ffMyHAi3t2tHsiM0lV5UZQmqbmo8EppPhS2JsJgLcJTOodidvc/9VePUhB3/
-99Wruxs41Wp8Cv18g4tF5F0M3+BGBVgoe2AVqvpvVf1WVRdUv0KcvIWFxSHO/3LKqtQnb2VW+mLW
-bnTs3chaWR7BJWEduWVAAltSat+KStaV4Ex24oh1IA4hdngsZZsCu5PFHRVH0YraKxtVJWteFqOP
-6MsPS1ZwU1IyZ8TF8nZ+8JXYPXv2MHrTRiZuNUJMibeIFZsX8NDsK7n5pRPYnr0hYNuyyhJe+Woa
-D866nAdnXcGWDCOq08eLZvDIB1N55dtn8UWdR3x4V5Zv38X3v9cPItw0hNySkusDnGwVPoUi4jBD
-lmGOczqGb3CjhCLA/iUi95sOzcOqX6F0bmFhYQGA8hpI2dMrS7ZuKgnnZunAZf2TWdWp4ZWQM8lJ
-+eZyfJU+VJXS9aWEd6idW6wyo8YYo3h1MWHtw2qdL/ipgJhBMfz5uwgqfF5sItgQKjS4IunsuDhm
-dK7JvmzzFNExMY2rT3qAnh0OD9r2Pz8/y4AuI/j7+a9z16QZpCZ0o7yyhK2Z67h78iv41MeOvHSK
-naeyant+o5HlGyPG1jH/vs9mf97QOTN25dnACSKyWUTWAdMwQgO+Aww3ff2mEJpP4Tuquh6o9ilc
-A3yNYf4eiFDGCQe+NPtbhWEs+HKQPvcSyjp6EIY+chw1KkQ131tYWFg0yhfpFUUnd3K9tsIl99yR
-G135+yBn4EyXQGTPSGJHxLLp/k2IXXB1dZFwXAKZH2US0T2C2KGx5H2TR8m6EsQu2KPsdL668972
-vkofBT8WcOfIY2mXt4XLEhK5JT0dp8ATHTsGnevwyEjS3TXeX86qQlIThjT6GcsrS9i85xcuOc5w
-v3PYnTjsTiqqyvD4PKgqVZ4K7DYH/1vzIaMOv4qOMV4ySwPZWQTHZY8iPafq8mB1WoNPoaqWYuyr
-NZlQBNjZQI8/IJ2KhYVFGyYvTF4pwH7VyoXZu7oNjhyckxDc0qz92e1pf3btpBTtz6l532FKzYP/
-rpm72PrYVhyxDno/3BtbuI0hl/bh04d/4OWqCjo5nbzZtStx9voW37vdbu7L2EOGxwPAS50NQZjh
-8XDW1q304SMmHGcIsLySTDamr6JbSt96/eQWZxDtiuPt7x4nPXcLXVJ6M+mYG3GFRTKk+xge+/Ba
-+nYaSkRYFNuyfuWUIy6hEGhviyazuOm7MlLV7rcHvnpmXuM12y6hqBBXA/VTiVpYWFg0gaVby0sc
-lfJwpRKT8F3xrpbsO2F0Amm3pdUqS55RyDERLr7o0ZOjI6N4Ja9hk/i79uzmysQkPu3eg1nd0ki0
-O9hSaagnP+7enU1ZWyivLKGwNJeKqlJ6d2p4NeZVLztzNjJmwETunPQS4Q4XX696H4ATh1zAXZNm
-cM7I6/l02WucPvxyfv71M2Z+/Q9mrfmV9rGnYiP08Fjxzo6+BRs3HB9ygzZKKAKsPfCbiHwpIvOq
-X/t7YhYWFm2P6EpmO7xsXrI+r6jvOndFS/Ub1TcKe1SNABj9WwdWp+/irLg4AM6Ki+Ob4voxNTZV
-VuIFjokyorpH2WxE2GzYzUiJPlV83ipsNjufLXudpJj6oaGqSYhKIT4qhbT2/QEY0mMsO3Nqh6za
-mbMRVGkX34XFv3/NVSfex+68rWwsiSYx7mwcEtZQ17WwiYPMPJ6dtfqrkNPbtFVCEWD3Y6gRHwGe
-9HtZWFhYNInVe4p9Ljd/BexrPt+zLjnP1+IxlpxuG5d/VU6u10OKaS6fbLeT6/XUq7utqooYm40/
-pe/inG1beSIrC68q3cLDcADnbt/G+PgksgvTUfUR7oys10c1sZGJJESnkFmwE4AN6StJja9tpPHp
-0tc4bcQVeH1e1DQmEbFR5amkxNaV2LjzCLfXT/LpT7gvNfeL35b9pSnfSVsllEgcCxp6NXdAEeki
-It+KyHoRWScit5jl00Qk3fTEXiUipzZ3DAsLi4OXDduLfwl383ip25fg+yT3V7u3ZWXY1f/rVs8B
-WURoaMPNi7K8vJy/pbRjdrc0drmruGj7di7cvp1Sn48Cr5dkTwXvLniSdTuXsCXjF6bPvYWHZl8J
-QEFpDs9/XuMSNXnUzbz+zSM88sFU0nM3cfKwi/aeW731R7qm9CU+KpnI8GjS2g/g4Q+mIgidkwy/
-tTJphyvmAqIciQ1+tghbrC7YuGH891tWNDugelsilEgcxbA3EmUY4ARKVTU2cKugeIDbVHWF6XW9
-XES+Ns9NV9V/NrNfCwuLVoLDx+sOD6M27Sode8RPkdlbx0altES/YR47Y9ZsAyDJ7iDbY6zCsj0e
-Eu31b3epDif9wsPpEmao7sZHx7C6opxZ7dP21vmmuJjDug5neO+T+HzZG1xxwr1Mn3srVe4K4qOS
-ueHUR/fW7ZzcizvOfaHBuQ3uPprB3UfvfX/OyOsarFcpcTiizyeu7GMKq2pCSDokjC2ZVa/MWvnt
-6pC/kDZOKCuwGFWNNQVWBHAu8GxzB1TVPaq6wjwuxohs36m5/VlYWLQ+NmwvVhv8TSBn5ffZe7ps
-9bSIlXNisWD3uQE4PjqajwsNv+mPCwsZF10/GP5Al4tin4880wJxUVkZPcNqLPzdqryVn8+JA0/G
-7a0C03BS1YfHV18l2VJ4JAJ35CSSXMbKTLCxJ0fWLNi0+ob9NmgrJJQ9sL2owce0kA+YiKQBQ4HF
-ZtFNIrJGRF4VkQbzeIvINSKyTESWZWe3XDgWCwuLP5atm4vznV5u9dkI3/Thnl86ZfqaHapu5ws7
-SR0MNzQAAA+kSURBVL9/O+llpRy/eRMfFhRwdVISP5eVMmHLZhaWlTI1yQjDuLainL9nGCsbuwh/
-S2nHlTt3cubWrYAyKb7G6Pq9/HzOjIslgko6JfYAVR7+YCo9UgcSGd6k7DBNxidOSl1nkBI5iOKS
-iD3fblx/3NIdG/ef1GyFhKJCPMfvrQ0YDvue3EZEojGCNt6qqkUi8gLwoNn3gxiGIlfWbaeqMzA8
-wxk+fPj+T7Jj8f/t3Xt01OWZwPHvM0nMjauI3OUSEYvQoragZdejtV5PW9cubuna6mHbQ1fXbbt1
-d8tWj8ftdtvupaVb62pZXZeuKF21KrqKtQTWC4YCAUMCAZOQmAQMl4SQezIzz/7xe4NhmAmTy0zm
-Nz6fc+aQye/yvvPjJE9+7+99n8f4gB8KF4pIHvAMUICXxfwlVV01Z/bof24jdN+JpxvePe/OyYvO
-tj4smvl3FvCLRzPJ7To9ndQTMy44Y98FObksmJx76v2n8/N5YfbsqOe941zvWdTb3c2EciVq4cqE
-kgBHOme1vFz63JXbaw4MPBtxmovnDuzzfV43AC3AkGq6uHxXzwHrVPU3AKraoKoh9abm/AdeMkdj
-zFn0KVy4RVULVHU+XhHCSf0f+eHxIhJwxyTav6rqxXgjL0tF5KaZx3git4unatu7xnY83VAyvnng
-f5fe8+rUM4LXcMruHpnYEW5v6Hxq68Of215zoGZEOpDiznoH5urBDBv3w/Y4sE9Vf9rn+1NUtfeJ
-5a3EmczRGBO9cCGcGul4ERiPNwHrflV90Q3fvwpsxkv1sxtXuBAoc7WfvgJ8E2/y1jbgblWNOvst
-Vjt991HVdtceqtotIsXA9M0tLTpv5ugHsnvIqW3q/OL0dUcrc++cXtCRH99jsUurJvKJA1Vx7TtY
-OZ1NJC48RpfVeazrsbcevrm4puSNJDftGzEDmIg80M9xqqr/MMg2l+LlVtzjfljA+8vvy67cteIN
-f3xjkOc35qMmnsKFJ13G76I+iQjmAStU9W4AEbnNFSkkonBhj6vQezuxS1xEbccllD2DiIzDG9X5
-N/AmdcybOfpvFcl4/yQrxj0Tqjh32cSCk6OO9jucGAjDyo1KIMGVnvI6klvDN9BW37F265o//n3V
-W5uT2rDP9HcHFq0mTD7wNWAC3nOqAVPVtyDqkoyoGZWNMUOSaoULEZFM4Gng56p66tZpf02Lzi6Y
-fK9wTs+xow3LutZ275pz24ULG84/GLMY1x1bZjOh+b1Ym4fN6GGozBwPAZqPlTVvKH56+TtVWzcm
-pVEfixnAVPVUtg23XutbwApgPZaJw5hU4pvChc4a4D1V/VnkhoOVH+iMiwtWBYKZ1a1tJ75T+l/F
-pR//o8UFh+dWjEFOv5mb0jiK63bUxtm9oRmuysz9CYdaqTj45vvbqt5eVlS1dXvCG0wD/U7icMXK
-fgCU4AW7y1T1u6ra319ixpjk8kXhQneeH7h9vx3rRLXllVpXXvVIdihvpaKy+4V36sa/Pb02M3R6
-nsBv/u94skLDlk6xX9nBLjTckbDzd3bWhF8qeqhkW9XbV1nwil/MACYi/wJsx5t1uFBVH1RVm8Zp
-TIrxS+FCEZkO3AfMB4pdyrivxzphbXnF5nNCOV8MaEZ9+dZdXV2/1j3jm6YEAT5bMo2CuqFWMx4Y
-CQ3/NA7VHuoaCjt+Vbj6ofoT1VcUVW212YYD0N8zsHvx1pPcD9wnHy7NELyfmcGmkjLGDDOfFC6s
-I/rz75hqyysPzri44NZgoOf7x+oPf+H4mg/2Llx6ydxlu7tyz3708MroaSaUFdfKhLh0dtaE/m/P
-M3VVR2pWldaWrR+2E3+E9PcMbEBZOowxJhFqyyvbgHunfWz2i5nBjtUnn9/Z/pPcaftXTC64qKCl
-Kk+GnlchLlk9zQxHBt1QqEVLqzc1by0vfFnpfqCs9kBybyXTiAUpY4wv1O87+MbY9qyrhNGrG9qO
-5fy4Ymftwz2j9n6QNzUp1eKzu04M6fhwuIPK+k0tT/zuh1u3lhd+STLG3LG37r0OEVnvhn73isgr
-InLRQM4rInEtQBeRarfEARE5szhafOfYICIps0b3rAuZjTEmVZTU17YB/7hk4pwnA+HuVbsba6/d
-3cTBBecVhG48d9KsgtbqvKxge0Lazu1spHkQx4VCJ6ht2NFaWFZY0dXT/hCS/WRpbWl3nwwqa1V1
-OYBbCzsJOGsKMHe84K2jPWsKsKFyaQUHFfgSxQKYMcZ3th2tqgHuuuK8mQuBu/Ycq7ym9GhF/di8
-Ce2fn7Zw6idCTRPGt9UN6wjTQBYzq4Zp76js2V9X1LKjclddKBx8DMl4ovT9kr4BwBcZVPrs9x1g
-JfA/cV+IBLMAZozxraJjNXuAuy+fMn9SRqjrT5s6m7/0ZMWbzU+ixy+bODfwmfz8qRcET+TndTcP
-OEFwpNFtjf1uV+2ho6MmWH98X/vOg7uamlqPv4cGn1JCz5bVHmiJcoifMqj0JlhPzO3tIFkAM8b4
-3s7DexuA1ZdOX/RQVk/b1RmhrtuKj1T8YbFwCNA5Y6eyeNzksXMywmPPC7Zlj+o8Hhho+qkxracv
-Zg6HO+jubgi2tB3qrj1+sOPd6j0nOoOdjWj4txB+RsONJWX1Hwx2hknKZFBxw5oFqvpX7g4wZVgA
-M8bELdXLtuyq2x0Eficifw2EAiJ5ozLPaQwjJ6tOHAoonAQkLysndMnYKTmzcnJzxmTlZuVlZWdl
-SyArU3uyM7ve784mlJmlYUCkKyDhFoUmDYTKqze0HWttCtY3Huo43nq0W0AhVI2GN0J4E1BaWrsv
-3qDllwwqV+Kt8avGixnni8gWVb06zjYSxgKYMSYuPpt08CduWExO9nQ9W9R0+JklEy7YqBJYJKqX
-tIWCH99+vHr2dhgHjBI0U1UDSs8Y0WDkWGEgHMjSjtzJraGmzXtBD6DhciG8X7XrQFld5WDTgRTi
-3f2sdHUOEZFPAXkMIoOKqvbgZVB5UURWq+oRETkXGK2qsRZIn7UdVX0EeMT1bxbwcioEL7AAZoyJ
-n28mHahqb9qMTHdeLTpWcwLY4l6nLJz16QwJB/MyQl35Ejw+NiPUnhFQzQYCIQm0CXpoVFdXS1Fj
-6bAuOFNVFZFbgZ+JyHfxnkdV46XZKgNecplNdhNfBpVidz17M6gEgB7gL4BYAWzdANpJOSkVwETk
-RrzyChnAY6r64xHukjHmQ36adICIvIZXGPdV4NlYH2pP9dYQXsq8FqJkz08kP2RQiThHdWT7Iyll
-ApiIZAAPA9cBdXgPITe4nGzGmNSWMpMOeqnqDSKSg3eX8Rm8fI4mjaRMAMP7S6mitz6QiKwHbgEs
-gBmTGvwy6eAUVe0UkRfxfpdYAEszEqNgatKJyDLgRlX9unv/VWCJqt4Tsd9KvMV04A1N7B9Ec+cB
-iS/wMzSp3sdU7x+kdh9nqurEke7EQLhJGEXA41EmHSwCLlTVv3STAQqB2e7Ql1V1QZ/zNAHnuwA0
-H++Z1tLISQfRZiGKyLeiteOGtnrPP8qd47B4xTPXAW+q6i8SeHnMCEilO7C4uB+cNUM5h4jsUNVP
-DlOXEiLV+5jq/QN/9NFPfDTpIB/YICLZePleNwOPRtnP+Fwq3YFdCTyoqje4938HoKo/SkBbKf+L
-LdX7mOr9A3/00RgzeKmUjX47MFdEZovIOcByYMNZjjHGGPMRlTJDiKoaFJF7gNfwptH/p6qWJai5
-IQ1BJkmq9zHV+wf+6KMxZpBSZgjRGGOMGYhUGkI0xhhj4mYBzBhjjC+ldQATkRtFZL+IVIjIqijb
-s0Xk1277tmSXChCRGSKyWbxS4mVujUvkPleLSLOI7HavB5Lcx2oR2ePa3hFlu4jIz901LBGRy5Lc
-v3l9rs1uETkpIt+O2GdEr6ExJjFSZhLHcIszNdXXgCZVvVBElgP/hJeXLVmCwL2qWiwio4GdIvJ6
-lPRZb6rq55LYr0jXuJxp0dwEzHWvJXhZq5ckq2Oquh9vEW3v/3k9Xsb0SCN9DY0xwyyd78BOpaZS
-1W6gNzVVX7cAa93XzwLXumwDSaGqh1W12H3dAuzDy+3mJ7cAv1JPETBORKaMUF+uBSr7KR1hjEkj
-6RzApgG1fd7XcWZwOLWPqgaBZmBCUnoXwQ1fXopXTiLSlSLyroi8KiKXJLVjoHhZEna6NF6R4rnO
-ybIceDrGtpG8hsaYBEjbIUQ/cbnbnsOrbHsyYnMxXt68VhG5GXgBb7guWf5AVetF5HzgdREpV9U3
-kth+XNzi9y8A0ZLCjvQ1NMYkQDrfgdUDM/q8n+6+F3Ufl/RzLHA8Kb1zRCQLL3itU9XfRG5X1ZOq
-2uq+fgXIcnWQkkJV692/R/CeLS2O2CWe65wMNwHFqtoQuWGkr6ExJjHSOYDFk5pqA3Cn+3oZUBit
-MF6iuOdtjwP7VPWnMfaZ3PtcTkQW4/2fJSXIiki+m1yCiOQD1wOlEbttAO5wsxGvAJpV9XAy+hfh
-y8QYPhzJa2iMSZy0HUKMlZpKRL4P7FDVDXjB479FpAJoxAtyybQU+CqwR7wS6wDfAy5wn+FRvMB6
-l4gEgQ5geRKD7CTgefe7PxN4SlU3isif9+nfK8DNQAXQDqxIUt9OccH1OuAbfb7Xt48jeQ2NMQli
-qaSMMcb4UjoPIRpjjEljFsCMMcb4kgUwY4wxvmQBzBhjjC9ZADPGGONLFsDSjFvztF5EKl2W+1dE
-5KIBHP+9OPer7l0MLCKtg+2vMcYMlgWwNOIW6z4PbFHVAlWdj7eubFI8x4pIwO1vjDEpzwJYerkG
-6HGLdwFQ1d3ALhHZJCLFrrbXLeAlEBaRfSLy73j5Ah8Hcl3NrHVun6+IyO/d937pSpbEJCJ/IyLb
-XW2wv0/YJzXGfORZAEsvC4CdUb7fCdyqqpfhBbmf9CkbMw+vHMqlqroC6FDVRap6u4h8DK8+2lJV
-XQSEgNtjNS4i1+MlyV2MV6PrchG5arg+nDHG9JW2qaTMaQT4oQsmYbxyJ73DijWujlc01wKX4xUD
-BcgFjvTTzvXutcu9H4UX0FIue70xxv8sgKWXMry8f5FuByYCl6tqj4hUAzluW1s/5xNgrapGK1ES
-a/8fqeov49zfGGMGzYYQ00shkN238KSIfAqYCRxxwesa9z6WHlfiBWATsMzVAkNEzhWR/o59Dfgz
-V98MEZnWe6wxxgw3C2BpxGVYvxX4rJtGXwY8iJcx/pMisgPvbqy8n9OsAUpEZJ2q7gXux6vIXAK8
-Dkzpp/3fAk8B74jIHuBZYPTQP5kxxpzJstEbY4zxJbsDM8YY40sWwIwxxviSBTBjjDG+ZAHMGGOM
-L1kAM8YY40sWwIwxxviSBTBjjDG+9P8hAzZbOiuqxQAAAABJRU5ErkJggg==
-"
->
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -12534,15 +11999,178 @@ L1kAM8YY40sWwIwxxviSBTBjjDG+9P8hAzZbOiuqxQAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I risultati mostrano come vi è una cartella vincente che ha una percentuale di vittorie più alta delle altre, e la massima distanza tra la prima e l'ultima cartella è di circa 1 punto percentuale.</p>
+<h3 id="MKM:-UN-DATABASE-DISPONIBILE">MKM: UN DATABASE DISPONIBILE<a class="anchor-link" href="#MKM:-UN-DATABASE-DISPONIBILE">&#182;</a></h3>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>MKM è un sito che permette la compravendita di carte di Magic. 
+Costruito principalmente da venditori professionali, esso possiede una struttra con molte informazioni che comprendono informazioni utili per la creazione di un database delle carte disponibili sul mercato, e che rispecchia in maniera reale i prezzi e le disponibilità di ciascun elemento.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Il sito vende molti prodotti, non solo carte: è necessario analizzare la struttura per arrivare a prendere solo le informazioni necessarie ai nostri scopi.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Il sito è composto da molte sezioni, ognuna dedita alla vendita di un particolare prodotto.
+Volendo scaricare tutte le carte in vendita, vi è la necessità di capire come vengono proposte le carte sul sito. 
+Vi è una sezione 'Editions' nella quale si trovano tutte le edizioni, e in ogni pagina dedicata alla edizione vi è una tabella dove sono immessi i dati relativi a ogni carta.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Scaricare-le-edizioni">Scaricare le edizioni<a class="anchor-link" href="#Scaricare-le-edizioni">&#182;</a></h5><p>Collegandoci al sito, dobbiamo scaricare tutti i nomi delle edizioni per poi arrivare ai link dove si possono scaricare le carte.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">get_title_editions</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ora abbiamo tutti i nomi delle edizioni: ora dobbiamo prendere tutte le sottosezioni, in quanto le carte sono salvate per trenta elementi su ogni pagina.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="CONTROLLO-SUL-DATABASE">CONTROLLO SUL DATABASE<a class="anchor-link" href="#CONTROLLO-SUL-DATABASE">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Controllo sul file editions: se è già scaricato, allora non lo riscarica nuovamente
+Avviene al primo avvio del kernel</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;Editions.txt&quot;</span><span class="p">)):</span>
+    <span class="n">editions</span> <span class="o">=</span> <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">open_editions</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Edizioni esistente&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Necessario scaricare file addizionali&quot;</span><span class="p">)</span>
+    <span class="n">editions</span> <span class="o">=</span> <span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">download_editions</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Controllo sul file editions: guarda se vi nuove edizioni
+Avviene ogni volta che si carica il kernel</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">get_title_editions</span><span class="p">()</span>
+<span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">save_title_editions</span><span class="p">()</span>
+<span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">update_editions</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Per l'intero database si scaricano tutte le carte messe in vendita su MKM: come si fa? 
+Prendendo la pagina con tutte le edizioni, si salvano i nomi delle edizioni (i quali sono salvati dentro un div) e dopodichè di prendono tutti i link relativi agli archivi delle carte. In questo modo poi si avrà una lista che contiene tutte le sorgenti dati.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ora che abbiamo le edizioni, possiamo scaricare tutte le carte:
+N.B: caratteri di codifica del file in posizione [0], quindi partiamo dalla posizione 1</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mkm_Scraper</span><span class="o">.</span><span class="n">download_all</span><span class="p">(</span><span class="n">editions1</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<button><a href="../Progetti.html">INDIETRO<a></button>
     </div>
-</div>
   </div>
-<button>
-  <a href="Progetti.html">INDIETRO</a>
-</button>
 </body>
 
  

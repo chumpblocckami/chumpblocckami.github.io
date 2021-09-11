@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog/" rel="alternate" type="text/html" /><updated>2021-09-11T16:43:13+02:00</updated><id>http://localhost:4000/blog/feed.xml</id><title type="html">No time to play</title><subtitle>A blog to track my learning journey through data, science and computers.</subtitle><entry><title type="html">Guide to graph theory: Basics</title><link href="http://localhost:4000/blog/guide-to-graph-basics/" rel="alternate" type="text/html" title="Guide to graph theory: Basics" /><published>2021-09-11T12:00:00+02:00</published><updated>2021-09-11T12:00:00+02:00</updated><id>http://localhost:4000/blog/guide-to-graph-basics</id><content type="html" xml:base="http://localhost:4000/blog/guide-to-graph-basics/">&lt;link href=&quot;../assets/style.css&quot; rel=&quot;stylesheet&quot; /&gt;
+
+&lt;p&gt;&lt;strong&gt;REVISIONS:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;2021-09-11 12:00:00: First submissions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this series of blog posts i will cover some fundamental knowledge about graphs and i’ll share some snippets of code
+in order to describe the graphs we’re using.&lt;/p&gt;
+
+&lt;p&gt;Graph theory is the study of a mathematical structure used to model relations between objects: in fact, a graph connects
+a series of object (called &lt;em&gt;nodes&lt;/em&gt;) using a link (called &lt;em&gt;edges&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;A graph can be also be &lt;em&gt;simple&lt;/em&gt;, so every node or edge doesn’t have any attribute, or &lt;em&gt;complex&lt;/em&gt;, with attributes that describe
+nodes (such as an attribute that reflects the name of the point) or attribute that characterize the connection between 
+vertices (such as the weight of the relation).&lt;/p&gt;
+
+&lt;p&gt;Right away the definition of elements we find in a graph:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Vertices/Nodes&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;Nodes represent an objects and hold attributes that describe it: for example, in a social graph, nodes represent people
+  and they might have attribute related to sex, ages, social influence and so on. Nodes are one of the main subjects of
+  graph, because they represent information about the population described by the graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Edges/Links&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;Edges represent the connection and the relationship between objects and the principles that connects them togheter.
+  Objects with a connections are related, and this relationship might represent similiarity in some attributes. 
+  Edges might also have attributes, that shows the weight of the relationship, such as intensity, weight or similarity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Directions&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;The relationship between two nodes A and B might be A towards B, B towards A or both combined, or none. A directed graph
+  shows a relation from one node to another one, which might not be reciprocate. An undirected graph is a connection between
+  two vertices without information about the direction, so the relationship can be considered in both ways between them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Cycles&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;A graph is called cyclical when it has a set of nodes that are connected in a closed loop, otherwise a graph is 
+called acyclical when it hasn’t have the closed/loop property.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;image-caption&quot;&gt;&lt;img src=&quot;../assets/images/guide-to-graph-basics/cyclical-acyclical-graph.png&quot; alt=&quot;Cyclical/Acyclical graph&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Cyclical graph and acyclical graph displayed. The cycle is highlighted in black. source: &lt;a href=&quot;https://www.researchgate.net/figure/Example-of-cyclic-and-acyclic-graphs_fig2_2431833&quot;&gt;Researchgate&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The structure of a graph may vary based on its topology, or in simple words its combination of nodes and edges: the relationship
+between nodes yeld to several types of graphs, distinguished on the basis of edges, their directions and their attributes.&lt;/p&gt;
+
+&lt;p&gt;Right away some well known graph we find in literature:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Simple graph&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;A graph is called simple when each edge connects two different vertices and no vertex has loops or more than one edge 
+connecting them. The graph is also unweighted and undirected, with no multiple edges.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;image-caption&quot;&gt;&lt;img src=&quot;../assets/images/guide-to-graph-basics/simple-graph.png&quot; alt=&quot;Simple graph&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Simple graph. Note how each edge connects only two nodes. source: &lt;a href=&quot;https://www.researchgate.net/publication/267422362_Graph_Mining_and_Communities_Detection&quot;&gt;Researchgate&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Multigraph&lt;/strong&gt;:
+  A graph is called multigraph when multiple edges may connect the same pair of vertices. In this kind of graph, multiple
+  edges lies between the same pair of vertices, so the multiplicity of the edge reflects the number of edges between two 
+  vertices.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;image-caption&quot;&gt;&lt;img src=&quot;../assets/images/guide-to-graph-basics/multi-graph.png&quot; alt=&quot;Multigraph&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Simple graph. Note how each edge connects only two nodes. source: &lt;a href=&quot;https://github.com/jgrapht/jgrapht/issues/452&quot;&gt;Github&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Connected graph&lt;/strong&gt;:
+A graph is called connected when every pair of vertices is connected, so there’s a path between every pair of nodes.
+On the other side, a disconnected graph is a structure where there’s unreachable nodes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;image-caption&quot;&gt;&lt;img src=&quot;../assets/images/guide-to-graph-basics/connected-disconnected-graph.png&quot; alt=&quot;Connected&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;On the left graph, a connected graph, on the right, a disconnected ones. The difference lies in the edges: in the first one,
+every node is reachable by any node, where in the second one don’t. source: &lt;a href=&quot;https://www.steveclarkapps.com/graphs/&quot;&gt;steveclarkapps&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Complete (or universal) graph&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;A graph is called complete when each pair of vertices is connected by an edge.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;image-caption&quot;&gt;&lt;img src=&quot;../assets/images/guide-to-graph-basics/complete-graph.png&quot; alt=&quot;Complete&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Complete graph, where each vertices is connected by an edge to every other node. source: &lt;a href=&quot;https://en.wikipedia.org/wiki/Complete_graph&quot;&gt;Wikimedia&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;image-caption&quot;&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Biconnected graph&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;A biconnected graph is a connected and non-separable graph: it means that, if any node is removed, the graph will continue
+  to be connected, so it has a high value of redundancy.
+&lt;img src=&quot;../assets/images/guide-to-graph-basics/biconnected-graph.png&quot; alt=&quot;Biconnected&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Biconnected graph, where the removal of a node won’t disconnect the structure. source: &lt;a href=&quot;https://en.wikipedia.org/wiki/Biconnected_graph&quot;&gt;Wikimedia&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;image-caption&quot;&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Bipartite graph&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;p&gt;A bipartite graph is a graph whose nodes can be divided in two sets such that every edge connects a vertex in one group
+ and one in another.
+&lt;img src=&quot;../assets/images/guide-to-graph-basics/bipartite-graph.png&quot; alt=&quot;Bipartite&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Bipartite graph, where the removal of a node won’t disconnect the structure. source: &lt;a href=&quot;https://en.wikipedia.org/wiki/Bipartite_graph&quot;&gt;Wikimedia&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;** Conclusions ** 
+In this post we had investigate the main component of a graphs, and we inspect the most common and widespread types of graph
+in literature. 
+In the next blogpost we’ll focus on graph’s metrics and other attributes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; in the near future i’ll update this post with ad hoc visualization and i’ll link the script to generate them.&lt;/p&gt;</content><author><name></name></author><category term="blog-post" /><summary type="html">REVISIONS: 2021-09-11 12:00:00: First submissions</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/blog/welcome-to-jekyll/" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2021-09-11T11:31:09+02:00</published><updated>2021-09-11T11:31:09+02:00</updated><id>http://localhost:4000/blog/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/blog/welcome-to-jekyll/">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/example.png&quot; alt=&quot;Ciao&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>

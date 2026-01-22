@@ -1,21 +1,21 @@
 ## TL;DR
-Educated in several acronyms across Italy (UNITN, UNIMIB), I am now working as AI Engineer at [Glassform.ai](https://www.glassform.ai/), working on apply Artificial Intelligence in the optimizaiton of the hollow glass production.
+Educated in several acronyms across Italy (UNITN, UNIMIB), I am now working as AI Engineer at [Glassform.ai](https://www.glassform.ai/), applying Artificial Intelligence in the optimizaiton of the hollow glass production.
 
-I previously worked at [spindoxlabs](https://spindoxlabs.com/en/), a R&D lab focused on innovative proposal as AI Consultant.
+I previously worked as an AI consultant at [spindoxlabs](https://spindoxlabs.com/en/), the R&D lab of [SPINDOX](https://makeamark.spindox.it/en/spindox-make-a-mark/) which is focused on innovative projects in the automotive field.
 
-Throughout my career, I was interested in different fields united by AI; For my masther thesis, I worked with the university of Milano Bicocca on a publication on measuring mental health through blog contents in the COVID19 era; I've also involved with [Istituto Dalle Molle di Studi sull'Intelligenza Artificiale](https://www.supsi.ch/idsia) on evaluating and grounding the response of LLM in critical domains.
-I've also worked in multiple occasion with [FBK](https://www.fbk.eu/en/), in projects that ranges from computer vision to data engineering platforms.
+Throughout my career, I was interested in different fields which had AI in common; For my master thesis, I worked with the university of [Milano Bicocca](https://ikr3.disco.unimib.it/) on a publication about measuring the psychological distress through blog contents in the COVID19 era.
+I've also been involved with [Istituto Dalle Molle di Studi sull'Intelligenza Artificiale](https://www.supsi.ch/idsia) on evaluating and grounding the response of LLM in critical domains, and I worked in multiple occasions with [FBK](https://www.fbk.eu/en/), in projects that ranges from computer vision to data engineering platforms.
 
 ### Research 
-I have done research in a heterogenus set of topics: NLP on mental health domain ([CMB](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/50F75572DF5C8F749B7B57DA0DB8490B/S0924933821000031a.pdf/surveilling-covid-19-emotional-contagion-on-twitter-by-sentiment-analysis.pdf), [SD](https://www.sciencedirect.com/science/article/pii/S0167739X21002399)), AI and Large Language Models assessment [IDSIA](https://ipg.idsia.ch/preprints/mitrovic2024e.pdf), industry optimization [PCS](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=57geT9MAAAAJ&citation_for_view=57geT9MAAAAJ:Se3iqnhoufwC) 
+I have done research in a heterogenus set of topics: NLP on mental health domain ([CMB](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/50F75572DF5C8F749B7B57DA0DB8490B/S0924933821000031a.pdf/surveilling-covid-19-emotional-contagion-on-twitter-by-sentiment-analysis.pdf), [SD](https://www.sciencedirect.com/science/article/pii/S0167739X21002399)), AI and Large Language Models assessment [IDSIA](https://ipg.idsia.ch/preprints/mitrovic2024e.pdf) and industry optimization [PCS](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=57geT9MAAAAJ&citation_for_view=57geT9MAAAAJ:Se3iqnhoufwC) 
 
 
 ## Appendix
 
 ## Open source projects 
-* [merchant-scroll](https://merchant-scroll.com/) is a website that let's you scroll through 'Magic:The Gathering' pauper decklists. The [SOURCE CODE](https://github.com/chumpblocckami/merchantscroll) is open source.
+* [merchant-scroll](https://merchant-scroll.com/) is a website that let's you scroll through 'Magic:The Gathering' pauper decklists. [[SOURCE CODE](https://github.com/chumpblocckami/merchantscroll)]
 
-* [Fantacalciosplash Lizzana](https://fantacalciosplashlizzana.streamlit.app/) is a fantasy football league on a historical summer tournament called [Calciosplash Lizzana](https://gsplizzana.it/) (which is really great, [check it out](https://www.youtube.com/@gsplizzana)). The [SOURCE CODE](https://github.com/chumpblocckami/fantacalciosplash_lizzana) is available.
+* [Fantacalciosplash Lizzana](https://fantacalciosplashlizzana.streamlit.app/) is a fantasy football league on a historical summer tournament called [Calciosplash Lizzana](https://gsplizzana.it/) (which is really great, [check it out](https://www.youtube.com/@gsplizzana)). [[SOURCE CODE](https://github.com/chumpblocckami/fantacalciosplash_lizzana)]
 
 * [blur_face](https://github.com/chumpblocckami/blur_face) is a Python library that lets you detect and remove faces fast, useful for real time applications.
 
@@ -32,7 +32,7 @@ I have done research in a heterogenus set of topics: NLP on mental health domain
 
 
 ## Other interests
-* I'm an avid Magic:the Gathering player with a history of ~~luck~~ some successes ([Corriere dello Sport](https://www.corrieredellosport.it/news/esports/eventi/2023/04/04-105961082/il_torneo_di_magic_piu_grande_del_mondo_l_hanno_organizzato_a_lecco), [MtgGoldfish](https://www.mtggoldfish.com/player/Matteo+Mazzola)). I sometimes also write about the game on Pauperwave ([1](https://www.pauperwave.com/matteo-mazzola-uscire-dalla-comfort-zone-con-il-pauper-e-crescita-personale/), [2](https://www.pauperwave.com/report-top-8-geddon-milano-eggs-tron-di-mazzola-matteo/), [3](https://www.pauperwave.com/2109-2/)) or on other media ([4](https://chumpblocckami.github.io/vedalken/paupergeddon/2023/lecco)).
+* I'm an avid Magic:the Gathering player with a history of ~~luck~~ some successes ([Corriere dello Sport](https://www.corrieredellosport.it/news/esports/eventi/2023/04/04-105961082/il_torneo_di_magic_piu_grande_del_mondo_l_hanno_organizzato_a_lecco), [MtgGoldfish](https://www.mtggoldfish.com/player/Matteo+Mazzola)). I sometimes write about the game on Pauperwave ([1](https://www.pauperwave.com/matteo-mazzola-uscire-dalla-comfort-zone-con-il-pauper-e-crescita-personale/), [2](https://www.pauperwave.com/report-top-8-geddon-milano-eggs-tron-di-mazzola-matteo/), [3](https://www.pauperwave.com/2109-2/)) or on other media ([4](https://chumpblocckami.github.io/vedalken/paupergeddon/2023/lecco)).
 
 * I really like to read, here are my [reading lists](https://www.goodreads.com/user/show/160397476-mazzeo-mattola), which sometimes I forgot to update; my plan is to read a book a month.
 

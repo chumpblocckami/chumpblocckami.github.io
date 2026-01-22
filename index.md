@@ -15,13 +15,13 @@ I have done research in a heterogenus set of topics: NLP on mental health domain
 ## Open source projects 
 * [merchant-scroll](https://merchant-scroll.com/) is a website that let's you scroll through 'Magic:The Gathering' pauper decklists. [[SOURCE CODE](https://github.com/chumpblocckami/merchantscroll)]
 
-* [Fantacalciosplash Lizzana](https://fantacalciosplashlizzana.streamlit.app/) is a fantasy football league on a historical summer tournament called [Calciosplash Lizzana](https://gsplizzana.it/) (which is really great, [check it out](https://www.youtube.com/@gsplizzana)). [[SOURCE CODE](https://github.com/chumpblocckami/fantacalciosplash_lizzana)]
+* [Fantacalciosplash Lizzana](https://fantacalciosplashlizzana.streamlit.app/) is a fantasy football league on an historical summer tournament called [Calciosplash Lizzana](https://gsplizzana.it/) (which is really great, [check it out](https://www.youtube.com/@gsplizzana)). [[SOURCE CODE](https://github.com/chumpblocckami/fantacalciosplash_lizzana)]
 
-* [blur_face](https://github.com/chumpblocckami/blur_face) is a Python library that lets you detect and remove faces fast, useful for real time applications.
+* [blur_face](https://github.com/chumpblocckami/blur_face) is a very fast Python library that let you detect and remove faces from photos or video, useful for real time applications.
 
 * [scrying](https://github.com/chumpblocckami/scrying) is a Scryfall API port written in Python.
 
-* [tweet2graph](https://github.com/chumpblocckami/Tweet2Graph) is a library that let's you easily import tweet directly into a graph structure (it powered my masther thesis).
+* [tweet2graph](https://github.com/chumpblocckami/Tweet2Graph) is a library that let's you easily import tweet directly into a graph structure (it powered my master thesis).
 
 ## Papers
 * [Assessing vulnerability to psychological distress during the COVID-19 pandemic through the analysis of microblogging content](https://www.sciencedirect.com/science/article/pii/S0167739X21002399)(JAN2021)

@@ -6,9 +6,6 @@ I previously worked at [spindoxlabs](https://spindoxlabs.com/en/), a R&D lab foc
 Throughout my career, I was interested in different fields united by AI; For my masther thesis, I worked with the university of Milano Bicocca on a publication on measuring mental health through blog contents in the COVID19 era; I've also involved with [Istituto Dalle Molle di Studi sull'Intelligenza Artificiale](https://www.supsi.ch/idsia) on evaluating and grounding the response of LLM in critical domains.
 I've also worked in multiple occasion with [FBK](https://www.fbk.eu/en/), in projects that ranges from computer vision to data engineering platforms.
 
-### Interest
-My field of interest is 
-
 ### Research 
 I have done research in a heterogenus set of topics: NLP on mental health domain ([CMB](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/50F75572DF5C8F749B7B57DA0DB8490B/S0924933821000031a.pdf/surveilling-covid-19-emotional-contagion-on-twitter-by-sentiment-analysis.pdf), [SD](https://www.sciencedirect.com/science/article/pii/S0167739X21002399)), AI and Large Language Models assessment [IDSIA](https://ipg.idsia.ch/preprints/mitrovic2024e.pdf), industry optimization [PCS](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=57geT9MAAAAJ&citation_for_view=57geT9MAAAAJ:Se3iqnhoufwC) 
 

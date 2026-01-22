@@ -1,4 +1,4 @@
 theme: jekyll-theme-minimal
 title: <div align="center"><img src="images/pic.png" width="200"/></div>
-description: Speriamo basti.<br /><br /><a href="https://github.com/chumpblocckami" target="_blank"><img src="images/github.png" width="23"/></a>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/matteo-mazzola/" target="_blank"><img src="images/linkedin.png" width="23"/></a>&nbsp;&nbsp;<a href="https://scholar.google.com/citations?user=5TvzuggAAAAJ&hl=en" target="_blank"><img src="images/scholar.png" width="23"/></a>
+description: Speriamo basti.<br /><br /><a href="https://github.com/chumpblocckami" target="_blank"><img src="images/github.png" width="23"/></a>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/matteo-mazzola/" target="_blank"><img src="images/linkedin.png" width="23"/></a>&nbsp;&nbsp;<a href="https://scholar.google.com/citations?user=5TvzuggAAAAJ&hl=en" target="_blank"><img src="images/scholar.png" width="23"/></a>;<a href="https://huggingface.co/vedalken" target="_blank"><img src="images/hf.png" width="23"/></a>
 google_analytics: UA-34006119-1

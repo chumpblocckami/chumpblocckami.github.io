@@ -1,4 +1,4 @@
-## TL;DR
+## Matteo Mazzola
 Educated in several acronyms across Italy (UNITN, UNIMIB), I am now working as AI Engineer at [Glassform.ai](https://www.glassform.ai/), applying Artificial Intelligence in the optimizaiton of the hollow glass production.
 
 I previously worked as an AI consultant at [spindoxlabs](https://spindoxlabs.com/en/), the R&D lab of [SPINDOX](https://makeamark.spindox.it/en/spindox-make-a-mark/) which is focused on innovative projects in the automotive field.

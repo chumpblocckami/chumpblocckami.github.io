@@ -32,12 +32,24 @@ I have done research in a heterogenus set of topics: NLP on mental health domain
 * [Assessing the Trustworthiness of Large Language Models on Domain-Specific Questions](https://link.springer.com/chapter/10.1007/978-3-031-73503-5_25) (JAN2024)
 * [A Physics-Informed AI Control System for Enhanced Safety and Automation in Hollow Glass Manufacturing](https://www.sciencedirect.com/science/article/pii/S1877050925003801) (JAN2025)
 
+## Reviews 
+In my free time, I'm collaborating with [Mannings](https://www.manning.com/) as an indipendent reviewer, where I helped the following author with in-depth assessments:
+- [Building reliable AI systems](https://www.manning.com/books/building-reliable-ai-systems) by Rush Shahani
+- [Evaluation and Alignment, The Seminal Papers](https://www.manning.com/books/evaluation-and-alignment-the-seminal-papers) (ex Evaluations and Alignments) by Hanchung Lee
+- Evaluating AI Systems by Panos Alexopoulos
+- Algorithms Every Programmer Should Know by Aniket Wattamwa
+- Building LLM Applications with DSPy by Serj Smorodinsky and Brett Kennedy
+
 ## Talks
+**SOON!**
+
+## Blogposts
 **SOON!**
 
 ## Badges
 [![Qdrant Essentials Certified](https://dev.qdrant.dev/functions/v1/certificate-badge?id=QDRANT-EA0194D9&v=qdrant-essentials)](https://train.qdrant.dev/certificate/QDRANT-EA0194D9)
 [![Qdrant Multi-Vector Search](https://dev.qdrant.dev/functions/v1/certificate-badge?id=QDRANT-21A7ADE6&v=qdrant-essentials)](https://train.qdrant.dev/certificate/QDRANT-21A7ADE6)
+
 
 ---
 
@@ -46,11 +58,22 @@ I have done research in a heterogenus set of topics: NLP on mental health domain
 
 * I really like to read, here are my [reading lists](https://www.goodreads.com/user/show/160397476-mazzeo-mattola), which sometimes I forgot to update; my plan is to read a book a month.
 
-* I was a semi-professional [400 hs athlete](https://atletica.me/atleta/Matteo-Mazzola/92376), and I am still holding the provincial record for the fastest 400hs run in Promesse category (*52.58*), which awarded me a third place in the [national final](https://www.youtube.com/watch?v=Ge8MPyPYdIA) in 2016.
+* I was a semi-professional [400 hs athlete](https://atletica.me/atleta/Matteo-Mazzola/92376), and I am still holding the provincial record for the fastest 400hs run in Promesse category (*52.58*), which awarded me a third place in the [national final](https://www.youtube.com/watch?v=Ge8MPyPYdIA) in 2016; Now i mostly cycle.
 
 ---
+
+## Let's connect!
+
+<style>
+  .strava-badge- { display: inline-block; height: 48px; }
+  .strava-badge- img { visibility: hidden; height: 48px; }
+  .strava-badge-:hover { background-position: 0 -63px; }
+  .strava-badge-follow { height: 48px; width: 48px; background: url(//badges.strava.com/echelon-sprite-48.png) no-repeat 0 0; }
+</style>
+<a href="https://strava.com/athletes/92356551" class="strava-badge- strava-badge-follow" target="_blank"><img src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" /></a>
+
 
 ### About this page 
 The content of _www.mttmzz.it_ are released under the [BY-NC-ND license](https://creativecommons.org/licenses/by-nc-nd/3.0/); my chibi has been designed by the incredibly talented [wisesnail](https://www.instagram.com/wisesnail/?hl=en). 
 
-Last update: January 2026. 
+Last update: May 2026. 

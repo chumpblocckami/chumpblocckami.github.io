@@ -270,7 +270,8 @@
       );
       ctx.clearRect(0, 0, width, height);
 
-      var scale = Math.min(0.38 * width, 0.4 * height);
+      // Keep the whole torus inside the canvas (model radius ~1.56)
+      var scale = Math.min(0.25 * width, 0.3 * height);
       var cy = Math.cos(rotation.yaw);
       var sy = Math.sin(rotation.yaw);
       var cp = Math.cos(rotation.pitch);
@@ -282,16 +283,16 @@
         var y1 = n.y * cp - z1 * sp;
         var z2 = n.y * sp + z1 * cp;
         var persp = 4.8 / (4.8 + z2);
-        var sx = 0.51 * width + x1 * scale * persp;
-        var sy2 = 0.48 * height + y1 * scale * persp;
+        var sx = 0.5 * width + x1 * scale * persp;
+        var sy2 = 0.5 * height + y1 * scale * persp;
         var dx = sx - pointer.x;
         var dy = sy2 - pointer.y;
         var dist = Math.hypot(dx, dy);
         var influence =
           !pointer.active || motionOff || paused
             ? 0
-            : Math.max(0, 1 - dist / 135);
-        var push = influence * influence * 17;
+            : Math.max(0, 1 - dist / 120);
+        var push = influence * influence * 10;
         return {
           x: sx + (dx / Math.max(1, dist)) * push,
           y: sy2 + (dy / Math.max(1, dist)) * push,
@@ -301,21 +302,21 @@
         };
       });
 
-      ctx.lineWidth = 0.7;
+      ctx.lineWidth = 0.65;
       var maxEdge = scale * (currentMode === 1 ? 0.42 : 0.65);
       for (var e = 0; e < edges.length; e++) {
         var a = projected[edges[e][0]];
         var b = projected[edges[e][1]];
         if (Math.hypot(a.x - b.x, a.y - b.y) > maxEdge) continue;
         var alpha = Math.min(
-          0.9,
-          Math.max(0.2, 0.4 - (a.z + b.z) * 0.04) +
-            (a.influence + b.influence) * 0.28
+          0.85,
+          Math.max(0.18, 0.35 - (a.z + b.z) * 0.04) +
+            (a.influence + b.influence) * 0.3
         );
-        // Deeper ink so the graph reads on the white page
+        // Resting navy; hover restores mint / lilac from the original viz
         ctx.strokeStyle =
-          a.influence > 0.25
-            ? "rgba(70, 78, 140, " + alpha + ")"
+          a.influence > 0.2
+            ? "rgba(168, 140, 255, " + Math.min(0.95, alpha + 0.15) + ")"
             : "rgba(31, 78, 121, " + alpha + ")";
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
@@ -332,26 +333,28 @@
         })
         .forEach(function (p) {
           var highlight = p.index % 97 === 0;
-          var alpha = Math.min(1, Math.max(0.45, 0.88 - 0.22 * p.z));
-          if (highlight || p.influence > 0.65) {
+          var alpha = Math.min(1, Math.max(0.4, 0.85 - 0.22 * p.z));
+          if (highlight || p.influence > 0.55) {
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 7 * p.scale, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, 8 * p.scale, 0, Math.PI * 2);
             ctx.fillStyle =
-              "rgba(31, 78, 121, " + (0.07 + 0.1 * p.influence) + ")";
+              "rgba(91, 224, 201, " + (0.08 + 0.18 * p.influence) + ")";
             ctx.fill();
           }
           ctx.beginPath();
           ctx.arc(
             p.x,
             p.y,
-            (highlight ? 2.8 : 1.35 + 1.2 * p.influence) * p.scale,
+            (highlight ? 2.8 : 1.3 + 1.4 * p.influence) * p.scale,
             0,
             Math.PI * 2
           );
           ctx.fillStyle =
-            p.index % 7 === 0 || p.influence > 0.5
-              ? "rgba(70, 78, 140, " + alpha + ")"
-              : "rgba(31, 78, 121, " + alpha + ")";
+            p.influence > 0.35
+              ? "rgba(184, 165, 255, " + Math.min(1, alpha + 0.1) + ")"
+              : p.index % 7 === 0
+                ? "rgba(70, 78, 140, " + alpha + ")"
+                : "rgba(31, 78, 121, " + alpha + ")";
           ctx.fill();
         });
 

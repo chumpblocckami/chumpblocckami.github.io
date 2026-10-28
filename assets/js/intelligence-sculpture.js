@@ -291,8 +291,8 @@
         var influence =
           !pointer.active || motionOff || paused
             ? 0
-            : Math.max(0, 1 - dist / 120);
-        var push = influence * influence * 10;
+            : Math.max(0, 1 - dist / 55);
+        var push = influence * influence * 6;
         return {
           x: sx + (dx / Math.max(1, dist)) * push,
           y: sy2 + (dy / Math.max(1, dist)) * push,
@@ -334,24 +334,24 @@
         .forEach(function (p) {
           var highlight = p.index % 97 === 0;
           var alpha = Math.min(1, Math.max(0.4, 0.85 - 0.22 * p.z));
-          if (highlight || p.influence > 0.55) {
+          if (p.influence > 0.7) {
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 8 * p.scale, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, 3.2 * p.scale, 0, Math.PI * 2);
             ctx.fillStyle =
-              "rgba(91, 224, 201, " + (0.08 + 0.18 * p.influence) + ")";
+              "rgba(91, 224, 201, " + (0.05 + 0.1 * p.influence) + ")";
             ctx.fill();
           }
           ctx.beginPath();
           ctx.arc(
             p.x,
             p.y,
-            (highlight ? 2.8 : 1.3 + 1.4 * p.influence) * p.scale,
+            (highlight ? 2.4 : 1.2 + 0.9 * p.influence) * p.scale,
             0,
             Math.PI * 2
           );
           ctx.fillStyle =
-            p.influence > 0.35
-              ? "rgba(184, 165, 255, " + Math.min(1, alpha + 0.1) + ")"
+            p.influence > 0.45
+              ? "rgba(184, 165, 255, " + Math.min(1, alpha + 0.08) + ")"
               : p.index % 7 === 0
                 ? "rgba(70, 78, 140, " + alpha + ")"
                 : "rgba(31, 78, 121, " + alpha + ")";

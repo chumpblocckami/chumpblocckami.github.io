@@ -1,0 +1,122 @@
+/* Minimal light sculpture — graph + mode switch */
+
+.sculpture-wrap {
+  --sculpture-accent: #1f4e79;
+  --sculpture-muted: #6a737d;
+  --sculpture-rule: #e1e4e8;
+  --sculpture-track: #f3f5f7;
+  --sculpture-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1rem 0 1.15rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--sculpture-muted);
+  font-family: var(--sculpture-mono);
+  text-align: left;
+  font-weight: 400;
+}
+
+@media screen and (min-width: 960px) {
+  header {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+.sculpture-stage {
+  height: 320px;
+  min-height: 320px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.sculpture-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: grab;
+  touch-action: pan-y;
+  outline: none;
+}
+
+.sculpture-canvas:active {
+  cursor: grabbing;
+}
+
+.sculpture-canvas:focus-visible {
+  outline: 2px solid var(--sculpture-accent);
+  outline-offset: 2px;
+}
+
+.sculpture-modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 0.65rem;
+  padding: 3px;
+  border: 1px solid var(--sculpture-rule);
+  border-radius: 999px;
+  background: var(--sculpture-track);
+}
+
+.sculpture-modes button {
+  appearance: none;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0.35rem 0.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--sculpture-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sculpture-modes button:hover {
+  color: #24292e;
+}
+
+.sculpture-modes button.active {
+  color: #fff;
+  background: var(--sculpture-accent);
+  font-weight: 600;
+  box-shadow: 0 1px 2px #1f4e7922;
+}
+
+.mode-indicator {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .sculpture-stage {
+    height: 320px;
+  }
+
+  .sculpture-modes button {
+    font-size: 11px;
+    min-height: 32px;
+  }
+}

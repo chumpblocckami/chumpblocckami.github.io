@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Matteo Mazzola
 
 > None can fight the tide forever.
